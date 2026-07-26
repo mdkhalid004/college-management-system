@@ -1,37 +1,57 @@
 package com.cfs.cms.entity;
 
+import com.cfs.cms.enums.FeeStatus;
+import com.cfs.cms.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "students")
-@Getter
-@Setter
-@NoArgsConstructor // Creates the default empty constructor required by JPA
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long studentId;
 
-    // Unique enrollment number for each student
-    @Column(nullable = false, unique = true)
-    private String enrollmentNumber;
+    // Foreign Key: User ID (Linking to your existing Auth User)
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(nullable = false)
     private String firstName;
-
-    @Column(nullable = false)
     private String lastName;
+    private  String enrollmentNumber;
+    private String fatherName;
+    private String motherName;
 
-    @Column(nullable = false)
-    private String department;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
-    // Standard date format for birth date
-    @Column(nullable = false)
-    private LocalDate dateOfBirth;
+    private LocalDate dob;
+    private String mobile;
+    private String address;
+
+    // Foreign Key: Department (Entity hum aage banayenge)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    // Foreign Key: Course (Entity hum aage banayenge)
+   @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    private Integer semester;
+    private LocalDate admissionDate;
+
+    @Enumerated(EnumType.STRING)
+    private FeeStatus feeStatus;
+
+    // Storing photo file path or URL string
+    private String photo;
 }

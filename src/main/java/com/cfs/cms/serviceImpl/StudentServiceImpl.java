@@ -1,76 +1,165 @@
 package com.cfs.cms.serviceImpl;
 
 import com.cfs.cms.dto.StudentDto;
+import com.cfs.cms.entity.Course;
+import com.cfs.cms.entity.Department;
 import com.cfs.cms.entity.Student;
+import com.cfs.cms.repository.CourseRepository;
+import com.cfs.cms.repository.DepartmentRepository;
 import com.cfs.cms.repository.StudentRepository;
 import com.cfs.cms.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
-
-    // Constructor-based injection for Spring Boot 4.1.0 compatibility
-    public StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    private final DepartmentRepository departmentRepository;
+    private final CourseRepository courseRepository;
 
     @Override
-    public StudentDto addStudent(StudentDto studentDto) {
-        // Check if a student with the same enrollment number already exists
-        if (studentRepository.findByEnrollmentNumber(studentDto.enrollmentNumber()).isPresent()) {
-            throw new RuntimeException("Error: Student with this enrollment number already exists!");
-        }
+    public StudentDto createStudent(StudentDto dto) {
 
-        // Map data from DTO to Entity
-        Student student = new Student();
-        student.setEnrollmentNumber(studentDto.enrollmentNumber());
-        student.setFirstName(studentDto.firstName());
-        student.setLastName(studentDto.lastName());
-        student.setDepartment(studentDto.department());
-        student.setDateOfBirth(studentDto.dateOfBirth());
+        Department department = departmentRepository.findById(dto.departmentId())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
 
-        // Save the entity to the database
+        Course course = courseRepository.findById(dto.courseId())
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
+        Student student = Student.builder()
+                .enrollmentNumber(dto.enrollmentNumber())
+                .firstName(dto.firstName())
+                .lastName(dto.lastName())
+                .fatherName(dto.fatherName())
+                .motherName(dto.motherName())
+                .gender(dto.gender())
+                .dob(dto.dob())
+                .mobile(dto.mobile())
+                .address(dto.address())
+                .department(department)
+                .course(course)
+                .semester(dto.semester())
+                .admissionDate(dto.admissionDate())
+                .feeStatus(dto.feeStatus())
+                .photo(dto.photo())
+                .build();
+
         Student savedStudent = studentRepository.save(student);
 
-        // Convert the saved entity back to DTO and return
         return mapToDto(savedStudent);
     }
 
     @Override
-    public List<StudentDto> getAllStudents() {
-        // Fetch all student entities from the database
-        List<Student> students = studentRepository.findAll();
+    public StudentDto getStudentById(Long studentId) {
 
-        // Convert the list of entities into a list of DTOs using Java Streams
-        return students.stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public StudentDto getStudentByEnrollmentNumber(String enrollmentNumber) {
-        // Fetch student or throw an exception if not found
-        Student student = studentRepository.findByEnrollmentNumber(enrollmentNumber)
-                .orElseThrow(() -> new RuntimeException("Error: Student not found with enrollment number: " + enrollmentNumber));
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID : " + studentId));
 
         return mapToDto(student);
     }
 
-    /**
-     * Helper method to map a Student Entity to a StudentDto Record.
-     */
+    @Override
+    public List<StudentDto> getAllStudents() {
+
+        return studentRepository.findAll()
+                .stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    @Override
+    public StudentDto updateStudent(Long studentId, StudentDto dto) {
+
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID : " + studentId));
+
+        Department department = departmentRepository.findById(dto.departmentId())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        Course course = courseRepository.findById(dto.courseId())
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
+        student.setEnrollmentNumber(dto.enrollmentNumber());
+        student.setFirstName(dto.firstName());
+        student.setLastName(dto.lastName());
+        student.setFatherName(dto.fatherName());
+        student.setMotherName(dto.motherName());
+        student.setGender(dto.gender());
+        student.setDob(dto.dob());
+        student.setMobile(dto.mobile());
+        student.setAddress(dto.address());
+        student.setDepartment(department);
+        student.setCourse(course);
+        student.setSemester(dto.semester());
+        student.setAdmissionDate(dto.admissionDate());
+        student.setFeeStatus(dto.feeStatus());
+        student.setPhoto(dto.photo());
+
+        Student updatedStudent = studentRepository.save(student);
+
+        return mapToDto(updatedStudent);
+    }
+
+    @Override
+    public void deleteStudent(Long studentId) {
+
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID : " + studentId));
+
+        studentRepository.delete(student);
+    }
+
     private StudentDto mapToDto(Student student) {
+
         return new StudentDto(
+
+                student.getStudentId(),
+
                 student.getEnrollmentNumber(),
+
                 student.getFirstName(),
+
                 student.getLastName(),
-                student.getDepartment(),
-                student.getDateOfBirth()
+
+                student.getFatherName(),
+
+                student.getMotherName(),
+
+                student.getGender(),
+
+                student.getDob(),
+
+                student.getMobile(),
+
+                student.getAddress(),
+
+                student.getDepartment() != null
+                        ? student.getDepartment().getDepartmentId()
+                        : null,
+
+                student.getDepartment() != null
+                        ? student.getDepartment().getName()
+                        : null,
+
+                student.getCourse() != null
+                        ? student.getCourse().getCourseId()
+                        : null,
+
+                student.getCourse() != null
+                        ? student.getCourse().getName()
+                        : null,
+
+                student.getSemester(),
+
+                student.getAdmissionDate(),
+
+                student.getFeeStatus(),
+
+                student.getPhoto()
         );
     }
 }

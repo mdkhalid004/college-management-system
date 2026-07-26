@@ -1,16 +1,45 @@
 package com.cfs.cms.dto;
 
+import com.cfs.cms.enums.FeeStatus;
+import com.cfs.cms.enums.Gender;
+
 import java.time.LocalDate;
 
-/**
- * A Java Record acting as a Data Transfer Object (DTO) for Student entity.
- * This is lightweight and immutable, perfect for API requests and responses.
- */
 public record StudentDto(
+
+        Long studentId,
+
         String enrollmentNumber,
+
         String firstName,
+
         String lastName,
-        String department,
-        LocalDate dateOfBirth
+
+        String fatherName,
+
+        String motherName,
+
+        Gender gender,
+
+        LocalDate dob,
+
+        String mobile,
+
+        String address,
+
+        Long departmentId,
+        String departmentName,
+
+        Long courseId,
+        String courseName,
+
+        Integer semester,
+
+        LocalDate admissionDate,
+
+        FeeStatus feeStatus,
+
+        String photo
+
 ) {
 }

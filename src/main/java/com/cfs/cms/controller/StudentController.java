@@ -2,49 +2,56 @@ package com.cfs.cms.controller;
 
 import com.cfs.cms.dto.StudentDto;
 import com.cfs.cms.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api/v1/students")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200") // Angular ke liye CORS enable kar diya
 public class StudentController {
 
     private final StudentService studentService;
 
-    // Constructor injection for Spring Boot 4.1.0 compatibility
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
-
-    // API to add a new student
+    // CREATE
     @PostMapping
-    public ResponseEntity<?> addStudent(@RequestBody StudentDto studentDto) {
-        try {
-            StudentDto savedStudent = studentService.addStudent(studentDto);
-            return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto) {
+        StudentDto response = studentService.createStudent(studentDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    // API to get a list of all students
+    // READ (GET BY ID)
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'STUDENT')")
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(studentService.getStudentById(id));
+    }
+
+    // READ (GET ALL)
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<List<StudentDto>> getAllStudents() {
-        List<StudentDto> students = studentService.getAllStudents();
-        return ResponseEntity.ok(students);
+        return ResponseEntity.ok(studentService.getAllStudents());
     }
 
-    // API to get a specific student by enrollment number
-    @GetMapping("/{enrollmentNumber}")
-    public ResponseEntity<?> getStudentByEnrollmentNumber(@PathVariable String enrollmentNumber) {
-        try {
-            StudentDto student = studentService.getStudentByEnrollmentNumber(enrollmentNumber);
-            return ResponseEntity.ok(student);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    // UPDATE
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable("id") Long id, @RequestBody StudentDto studentDto) {
+        StudentDto response = studentService.updateStudent(id, studentDto);
+        return ResponseEntity.ok(response);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteStudent(@PathVariable("id") Long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok("Student with ID " + id + " deleted successfully");
     }
 }
