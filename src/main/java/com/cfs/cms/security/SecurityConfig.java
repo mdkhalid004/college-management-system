@@ -22,7 +22,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtFilter;
     private final UserDetailsService userDetailsService;
 
-    // @Autowired ki jagah Constructor Injection (Spring Boot mein best practice hai aur IDE errors nahi deta)
+
     public SecurityConfig(JwtAuthenticationFilter jwtFilter, UserDetailsService userDetailsService) {
         this.jwtFilter = jwtFilter;
         this.userDetailsService = userDetailsService;
@@ -49,13 +49,13 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    // YEH SABSE ZAROORI HAI - Iske bina JWT filter chain mein add nahi hoga
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Login aur Register ko open rakha hai
+                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -81,7 +81,7 @@ public class TeacherServiceImpl implements TeacherService {
         existingTeacher.setJoiningDate(dto.joiningDate());
         existingTeacher.setAddress(dto.address());
 
-        // Agar department update karna ho
+
         if (dto.departmentId() != null) {
             Department department = departmentRepository.findById(dto.departmentId())
                     .orElseThrow(() -> new RuntimeException("Department not found"));

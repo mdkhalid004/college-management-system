@@ -36,12 +36,12 @@ public class Student {
     private String mobile;
     private String address;
 
-    // Foreign Key: Department (Entity hum aage banayenge)
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    // Foreign Key: Course (Entity hum aage banayenge)
+
    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
@@ -52,6 +52,6 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private FeeStatus feeStatus;
 
-    // Storing photo file path or URL string
+
     private String photo;
 }

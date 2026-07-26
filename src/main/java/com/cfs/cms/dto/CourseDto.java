@@ -6,8 +6,8 @@ package com.cfs.cms.dto;
 public record CourseDto(
         Long courseId,
         String name,
-        Long departmentId,      // Input ke liye (Jab naya course banayenge)
-        String departmentName,  // Output ke liye (Jab frontend pe list dikhayenge)
+        Long departmentId,
+        String departmentName,
         String duration,
         Double totalFees
 ) {

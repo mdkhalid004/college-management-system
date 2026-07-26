@@ -8,6 +8,6 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    // Custom query method to find a student by their unique enrollment number
+
     Optional<Student> findByEnrollmentNumber(String enrollmentNumber);
 }

@@ -4,8 +4,10 @@ import com.cfs.cms.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    // Agar kisi specific department ke courses nikalne ho to:
-    // List<Course> findByDepartmentDepartmentId(Long departmentId);
+
+     List<Course> findByDepartmentDepartmentId(Long departmentId);
 }

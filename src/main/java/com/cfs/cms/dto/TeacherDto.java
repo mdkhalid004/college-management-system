@@ -7,11 +7,11 @@ import java.time.LocalDate;
  */
 public record TeacherDto(
         Long teacherId,
-        Long userId,            // Foreign Key input ke liye
+        Long userId,
         String name,
         String phone,
-        Long departmentId,      // Foreign Key input ke liye
-        String departmentName,  // Frontend par show karne ke liye
+        Long departmentId,
+        String departmentName,
         String subject,
         String qualification,
         Double salary,
