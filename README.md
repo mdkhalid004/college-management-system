@@ -17,7 +17,7 @@ The system currently handles complex relational mappings and ensures clean API r
 *   **Framework:** Spring Boot, Spring Web
 *   **Data Access:** Spring Data JPA, Hibernate
 *   **Database:** MySQL
-*   **Tools:** Lombok, Postman (for API Testing)
+*   **Tools:** Postman (for API Testing)
 
 ## 🚧 Upcoming Features
 *   **Frontend Integration:** Building a complete, interactive user interface using **Angular**.
