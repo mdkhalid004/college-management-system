@@ -42,4 +42,12 @@ public class Fees {
     private PaymentMode paymentMode;
 
     private String transactionId;
+
+    public String getFeesId() {
+        return null;
+    }
+
+    public String getAmount() {
+        return null;
+    }
 }

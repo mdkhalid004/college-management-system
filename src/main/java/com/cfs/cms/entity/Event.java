@@ -32,4 +32,12 @@ public class Event {
 
     @Column(nullable = false)
     private String venue;
+
+    public  String getLocation() {
+        return null;
+    }
+
+    public  String getTitle() {
+        return null;
+    }
 }

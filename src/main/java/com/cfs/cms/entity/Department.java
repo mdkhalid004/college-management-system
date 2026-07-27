@@ -23,4 +23,8 @@ public class Department {
     private Integer totalTeachers;
 
     private Integer totalStudents;
+
+    public  String getDepartmentName() {
+        return null;
+    }
 }
