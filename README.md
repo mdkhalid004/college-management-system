@@ -10,9 +10,9 @@ All endpoints are secured using **JWT (JSON Web Token) Authentication** to ensur
 *   **API Endpoints:** RESTful APIs for managing core college operations (Work in progress).
 
 ## 🛠️ Tech Stack
-*   **Backend:** (Aapka framework, e.g., Java, Spring Boot)
+*   **Backend:** Framework, e.g., Java, Spring Boot
 *   **Security:** JWT Token Authentication
-*   **Database:** (Aapka database, e.g., MySQL)
+*   **Database:** Database, e.g., MySQL
 
 ## 🚧 Upcoming Features
 *   **Frontend Development:** A complete, interactive user interface built with **Angular**.
