@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.LibraryDto;
 import com.cfs.cms.entity.Library;
 import com.cfs.cms.repository.LibraryRepository;
@@ -38,14 +38,14 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public LibraryDto getLibraryRecordById(Long bookId) {
         Library library = libraryRepository.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Library record not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Library record not found"));
         return mapToDto(library);
     }
 
     @Override
     public LibraryDto updateLibraryRecord(Long bookId, LibraryDto libraryDto) {
         Library library = libraryRepository.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Library record not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Library record not found"));
 
         library.setName(libraryDto.getName());
         library.setAuthor(libraryDto.getAuthor());

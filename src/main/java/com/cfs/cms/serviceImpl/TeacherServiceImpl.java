@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.TeacherDto;
 import com.cfs.cms.entity.Department;
 import com.cfs.cms.entity.Teacher;
@@ -29,13 +29,13 @@ public class TeacherServiceImpl implements TeacherService {
         User user = null;
         if (dto.userId() != null) {
             user = userRepository.findById(dto.userId())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         }
 
         Department department = null;
         if (dto.departmentId() != null) {
             department = departmentRepository.findById(dto.departmentId())
-                    .orElseThrow(() -> new RuntimeException("Department not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
         }
 
         Teacher teacher = Teacher.builder()
@@ -57,7 +57,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherDto getTeacherById(Long teacherId) {
         Teacher teacher = teacherRepository.findById(teacherId)
-                .orElseThrow(() -> new RuntimeException("Teacher not found with ID: " + teacherId));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found with ID: " + teacherId));
         return mapToDto(teacher);
     }
 
@@ -71,7 +71,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherDto updateTeacher(Long teacherId, TeacherDto dto) {
         Teacher existingTeacher = teacherRepository.findById(teacherId)
-                .orElseThrow(() -> new RuntimeException("Teacher not found with ID: " + teacherId));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found with ID: " + teacherId));
 
         existingTeacher.setName(dto.name());
         existingTeacher.setPhone(dto.phone());
@@ -84,7 +84,7 @@ public class TeacherServiceImpl implements TeacherService {
 
         if (dto.departmentId() != null) {
             Department department = departmentRepository.findById(dto.departmentId())
-                    .orElseThrow(() -> new RuntimeException("Department not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
             existingTeacher.setDepartment(department);
         }
 
@@ -95,7 +95,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void deleteTeacher(Long teacherId) {
         Teacher teacher = teacherRepository.findById(teacherId)
-                .orElseThrow(() -> new RuntimeException("Teacher not found with ID: " + teacherId));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found with ID: " + teacherId));
         teacherRepository.delete(teacher);
     }
 

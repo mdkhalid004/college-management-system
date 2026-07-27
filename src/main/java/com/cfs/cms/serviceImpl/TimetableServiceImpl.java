@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.TimetableDto;
 import com.cfs.cms.entity.Course;
 import com.cfs.cms.entity.Department;
@@ -28,13 +28,13 @@ public class TimetableServiceImpl implements TimetableService {
     @Override
     public TimetableDto createTimetable(TimetableDto timetableDto) {
         Department department = departmentRepository.findById(timetableDto.getDepartmentId())
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
 
         Course course = courseRepository.findById(timetableDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         Teacher teacher = teacherRepository.findById(timetableDto.getTeacherId())
-                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found"));
 
         Timetable timetable = new Timetable();
         timetable.setDepartment(department);
@@ -57,23 +57,23 @@ public class TimetableServiceImpl implements TimetableService {
     @Override
     public TimetableDto getTimetableById(Long timetableId) {
         Timetable timetable = timetableRepository.findById(timetableId)
-                .orElseThrow(() -> new RuntimeException("Timetable not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Timetable not found"));
         return mapToDto(timetable);
     }
 
     @Override
     public TimetableDto updateTimetable(Long timetableId, TimetableDto timetableDto) {
         Timetable timetable = timetableRepository.findById(timetableId)
-                .orElseThrow(() -> new RuntimeException("Timetable not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Timetable not found"));
 
         Department department = departmentRepository.findById(timetableDto.getDepartmentId())
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
 
         Course course = courseRepository.findById(timetableDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         Teacher teacher = teacherRepository.findById(timetableDto.getTeacherId())
-                .orElseThrow(() -> new RuntimeException("Teacher not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found"));
 
         timetable.setDepartment(department);
         timetable.setSemester(timetableDto.getSemester());

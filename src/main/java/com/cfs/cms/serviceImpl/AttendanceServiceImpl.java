@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.AttendanceDto;
 import com.cfs.cms.entity.Attendance;
 import com.cfs.cms.enums.AttendanceStatus;
@@ -30,9 +30,9 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public AttendanceDto createAttendance(AttendanceDto attendanceDto) {
         Student student = studentRepository.findById(attendanceDto.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
         Course course = courseRepository.findById(attendanceDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         Attendance attendance = new Attendance();
         attendance.setStudent(student);
@@ -52,19 +52,19 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public AttendanceDto getAttendanceById(Long attendanceId) {
         Attendance attendance = attendanceRepository.findById(attendanceId)
-                .orElseThrow(() -> new RuntimeException("Attendance not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Attendance not found"));
         return mapToDto(attendance);
     }
 
     @Override
     public AttendanceDto updateAttendance(Long attendanceId, AttendanceDto attendanceDto) {
         Attendance attendance = attendanceRepository.findById(attendanceId)
-                .orElseThrow(() -> new RuntimeException("Attendance not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Attendance not found"));
 
         Student student = studentRepository.findById(attendanceDto.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
         Course course = courseRepository.findById(attendanceDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         attendance.setStudent(student);
         attendance.setCourse(course);

@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.ExamDto;
 import com.cfs.cms.entity.Course;
 import com.cfs.cms.entity.Exam;
@@ -22,7 +22,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public ExamDto createExam(ExamDto examDto) {
         Course course = courseRepository.findById(examDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         Exam exam = new Exam();
         exam.setName(examDto.getName());
@@ -43,17 +43,17 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public ExamDto getExamById(Long examId) {
         Exam exam = examRepository.findById(examId)
-                .orElseThrow(() -> new RuntimeException("Exam not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Exam not found"));
         return mapToDto(exam);
     }
 
     @Override
     public ExamDto updateExam(Long examId, ExamDto examDto) {
         Exam exam = examRepository.findById(examId)
-                .orElseThrow(() -> new RuntimeException("Exam not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Exam not found"));
 
         Course course = courseRepository.findById(examDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         exam.setName(examDto.getName());
         exam.setCourse(course);

@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.CourseDto;
 import com.cfs.cms.entity.Course;
 import com.cfs.cms.entity.Department;
@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
 
         // Fetch Department from DB using FK
         Department department = departmentRepository.findById(dto.departmentId())
-                .orElseThrow(() -> new RuntimeException("Department not found with ID: " + dto.departmentId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with ID: " + dto.departmentId()));
 
         Course course = Course.builder()
                 .name(dto.name())
@@ -40,7 +40,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDto getCourseById(Long courseId) {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with ID: " + courseId));
         return mapToDto(course);
     }
 
@@ -54,7 +54,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDto updateCourse(Long courseId, CourseDto dto) {
         Course existingCourse = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with ID: " + courseId));
 
         existingCourse.setName(dto.name());
         existingCourse.setDuration(dto.duration());
@@ -63,7 +63,7 @@ public class CourseServiceImpl implements CourseService {
         // Update department if a new one is provided
         if (dto.departmentId() != null) {
             Department department = departmentRepository.findById(dto.departmentId())
-                    .orElseThrow(() -> new RuntimeException("Department not found with ID: " + dto.departmentId()));
+                    .orElseThrow(() -> new ResourceNotFoundException("Department not found with ID: " + dto.departmentId()));
             existingCourse.setDepartment(department);
         }
 
@@ -74,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(Long courseId) {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with ID: " + courseId));
         courseRepository.delete(course);
     }
 

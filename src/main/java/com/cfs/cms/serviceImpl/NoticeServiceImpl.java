@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.NoticeDto;
 import com.cfs.cms.entity.Notice;
 import com.cfs.cms.repository.NoticeRepository;
@@ -35,14 +35,14 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public NoticeDto getNoticeById(Long noticeId) {
         Notice notice = noticeRepository.findById(noticeId)
-                .orElseThrow(() -> new RuntimeException("Notice not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Notice not found"));
         return mapToDto(notice);
     }
 
     @Override
     public NoticeDto updateNotice(Long noticeId, NoticeDto noticeDto) {
         Notice notice = noticeRepository.findById(noticeId)
-                .orElseThrow(() -> new RuntimeException("Notice not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Notice not found"));
 
         notice.setTitle(noticeDto.getTitle());
         notice.setDescription(noticeDto.getDescription());

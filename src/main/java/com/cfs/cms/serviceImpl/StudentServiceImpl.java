@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.StudentDto;
 import com.cfs.cms.entity.Course;
 import com.cfs.cms.entity.Department;
@@ -25,10 +25,10 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto createStudent(StudentDto dto) {
 
         Department department = departmentRepository.findById(dto.departmentId())
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
 
         Course course = courseRepository.findById(dto.courseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         Student student = Student.builder()
                 .enrollmentNumber(dto.enrollmentNumber())
@@ -57,7 +57,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto getStudentById(Long studentId) {
 
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new RuntimeException("Student not found with ID : " + studentId));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with ID : " + studentId));
 
         return mapToDto(student);
     }
@@ -75,13 +75,13 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto updateStudent(Long studentId, StudentDto dto) {
 
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new RuntimeException("Student not found with ID : " + studentId));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with ID : " + studentId));
 
         Department department = departmentRepository.findById(dto.departmentId())
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found"));
 
         Course course = courseRepository.findById(dto.courseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         student.setEnrollmentNumber(dto.enrollmentNumber());
         student.setFirstName(dto.firstName());
@@ -106,10 +106,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudent(Long studentId) {
-
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new RuntimeException("Student not found with ID : " + studentId));
-
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with ID : " + studentId));
         studentRepository.delete(student);
     }
 

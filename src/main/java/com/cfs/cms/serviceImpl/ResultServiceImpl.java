@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.ResultDto;
 import com.cfs.cms.entity.Course;
 import com.cfs.cms.entity.Result;
@@ -25,10 +25,10 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public ResultDto createResult(ResultDto resultDto) {
         Student student = studentRepository.findById(resultDto.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 
         Course course = courseRepository.findById(resultDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         Result result = new Result();
         result.setStudent(student);
@@ -49,20 +49,20 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public ResultDto getResultById(Long resultId) {
         Result result = resultRepository.findById(resultId)
-                .orElseThrow(() -> new RuntimeException("Result not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Result not found"));
         return mapToDto(result);
     }
 
     @Override
     public ResultDto updateResult(Long resultId, ResultDto resultDto) {
         Result result = resultRepository.findById(resultId)
-                .orElseThrow(() -> new RuntimeException("Result not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Result not found"));
 
         Student student = studentRepository.findById(resultDto.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 
         Course course = courseRepository.findById(resultDto.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
 
         result.setStudent(student);
         result.setCourse(course);

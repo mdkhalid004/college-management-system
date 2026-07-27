@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.EventDto;
 import com.cfs.cms.entity.Event;
 import com.cfs.cms.repository.EventRepository;
@@ -37,14 +37,14 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto getEventById(Long eventId) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
         return mapToDto(event);
     }
 
     @Override
     public EventDto updateEvent(Long eventId, EventDto eventDto) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
 
         event.setEventName(eventDto.getEventName());
         event.setDescription(eventDto.getDescription());

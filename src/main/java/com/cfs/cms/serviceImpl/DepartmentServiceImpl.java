@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.DepartmentDto;
 import com.cfs.cms.entity.Department;
 import com.cfs.cms.repository.DepartmentRepository;
@@ -32,7 +32,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentDto getDepartmentById(Long departmentId) {
         Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new RuntimeException("Department not found with ID: " + departmentId));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with ID: " + departmentId));
         return mapToDto(department);
     }
 
@@ -46,7 +46,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentDto updateDepartment(Long departmentId, DepartmentDto dto) {
         Department existingDepartment = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new RuntimeException("Department not found with ID: " + departmentId));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with ID: " + departmentId));
 
         existingDepartment.setName(dto.name());
         existingDepartment.setHod(dto.hod());
@@ -65,7 +65,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void deleteDepartment(Long departmentId) {
         Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new RuntimeException("Department not found with ID: " + departmentId));
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found with ID: " + departmentId));
         departmentRepository.delete(department);
     }
 

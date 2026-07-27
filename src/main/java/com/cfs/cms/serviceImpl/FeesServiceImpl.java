@@ -1,5 +1,5 @@
 package com.cfs.cms.serviceImpl;
-
+import com.cfs.cms.exception.ResourceNotFoundException;
 import com.cfs.cms.dto.FeesDto;
 import com.cfs.cms.entity.Fees;
 import com.cfs.cms.enums.PaymentMode;
@@ -23,7 +23,7 @@ public class FeesServiceImpl implements FeesService {
     @Override
     public FeesDto createFees(FeesDto feesDto) {
         Student student = studentRepository.findById(feesDto.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 
         Fees fees = new Fees();
         fees.setReceiptNo(feesDto.getReceiptNo());
@@ -50,17 +50,17 @@ public class FeesServiceImpl implements FeesService {
     @Override
     public FeesDto getFeesById(Long receiptId) {
         Fees fees = feesRepository.findById(receiptId)
-                .orElseThrow(() -> new RuntimeException("Fees record not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Fees record not found"));
         return mapToDto(fees);
     }
 
     @Override
     public FeesDto updateFees(Long receiptId, FeesDto feesDto) {
         Fees fees = feesRepository.findById(receiptId)
-                .orElseThrow(() -> new RuntimeException("Fees record not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Fees record not found"));
 
         Student student = studentRepository.findById(feesDto.getStudentId())
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 
         fees.setReceiptNo(feesDto.getReceiptNo());
         fees.setStudent(student);
