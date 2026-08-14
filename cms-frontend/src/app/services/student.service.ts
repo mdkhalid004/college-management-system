@@ -27,8 +27,6 @@ export interface Student {
 })
 export class StudentService {
   private http = inject(HttpClient);
-  
-  // Base URLs (Agar apke backend me department/course ka URL alag hai to yahan change kar lena)
   private apiUrl = 'http://localhost:8080/api/v1/students';
   private deptUrl = 'http://localhost:8080/api/v1/departments'; 
   private courseUrl = 'http://localhost:8080/api/v1/courses';
@@ -58,8 +56,6 @@ export class StudentService {
   deleteStudent(id: number): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
-
-  // 🔴 NAYE API CALLS: Dropdowns ko dynamic banane ke liye
   getAllDepartments(): Observable<any[]> {
     return this.http.get<any[]>(this.deptUrl, { headers: this.getHeaders() });
   }

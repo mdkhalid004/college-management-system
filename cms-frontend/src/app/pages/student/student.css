@@ -1,10 +1,8 @@
-/* =========================================
-   Wrapper & Card (Table Background)
-========================================= */
+
 .student-wrapper {
   background-color: #f4f6f9;
   min-height: calc(100vh - 70px);
-  padding: 24px; /* 🔴 Teacher jaisa card ke bahar gray space laane ke liye add kiya */
+  padding: 24px; 
 }
 
 .content-card {
@@ -16,9 +14,7 @@
   width: 100%;
 }
 
-/* =========================================
-   Header & Add Button
-========================================= */
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -49,9 +45,7 @@
   background-color: #1b4bbf;
 }
 
-/* =========================================
-   Table Styling
-========================================= */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -82,9 +76,7 @@ td {
   cursor: pointer;
 }
 
-/* =========================================
-   Student Specific Status Badges
-========================================= */
+
 .status-badge {
   padding: 6px 12px;
   border-radius: 20px;
@@ -103,9 +95,7 @@ td {
   color: #991b1b;
 }
 
-/* =========================================
-   Action Buttons (Edit/Delete)
-========================================= */
+
 .actions {
   display: flex;
   gap: 10px;
@@ -127,9 +117,7 @@ td {
 .btn-delete { color: #dc3545; border-color: #dc3545; }
 .btn-delete:hover { background-color: #dc3545; color: white; }
 
-/* =========================================
-   Modal Overlay & Content
-========================================= */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -178,9 +166,7 @@ td {
 
 .close-btn:hover { color: #ffffff; }
 
-/* =========================================
-   Form Inputs & Layout
-========================================= */
+
 form { padding: 20px 25px; }
 
 .form-grid {
@@ -235,9 +221,7 @@ form { padding: 20px 25px; }
 .btn-save:hover:not(:disabled) { background-color: #1b4bbf; }
 .btn-save:disabled { background-color: #a0b7f6; cursor: not-allowed; }
 
-/* =========================================
-   Mobile Responsiveness
-========================================= */
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;

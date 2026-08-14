@@ -18,8 +18,6 @@ export class NoticeComponent implements OnInit {
   noticeList: Notice[] = [];
   isLoading: boolean = false;
   selectedNoticeId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
 
   noticeForm = new FormGroup({
@@ -40,8 +38,6 @@ export class NoticeComponent implements OnInit {
     this.noticeService.getAllNotices().subscribe({
       next: (data: any) => {
         this.noticeList = Array.isArray(data) ? data : (data.content || []);
-        
-        // Sort notices by newest first (optional logic)
         this.noticeList.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
         
         this.isLoading = false;
@@ -54,8 +50,6 @@ export class NoticeComponent implements OnInit {
   openModal() {
     this.selectedNoticeId = null;
     this.noticeForm.reset();
-    
-    // Auto-fill today's date for new notices
     this.noticeForm.patchValue({
       publishDate: new Date().toISOString().split('T')[0]
     });

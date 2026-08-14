@@ -1,7 +1,7 @@
 <div class="teacher-wrapper p-4">
   <div class="content-card">
     
-    <!-- Header -->
+    
     <div class="header-container d-flex justify-content-between align-items-center mb-4">
       <h2 class="fw-bold m-0" style="color: #1a1c24;">Teacher Management</h2>
       <button class="btn btn-primary px-4 py-2 btn-add" 
@@ -12,9 +12,9 @@
       </button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 💻 DESKTOP & TABLET VIEW (Standard Table)   -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="table-responsive d-none d-md-block table-container">
       <table class="table table-hover align-middle mb-0 text-nowrap">
         <thead class="table-custom-header">
@@ -59,13 +59,13 @@
       </table>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 📱 MOBILE VIEW (Card / Vertical List View) -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="d-block d-md-none p-2" *ngIf="teachers.length > 0">
       <div class="teacher-mobile-card mb-3 p-3 bg-white border rounded-4 shadow-sm" *ngFor="let teacher of teachers">
         
-        <!-- Card Header: ID & Salary -->
+        
         <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
           <div class="d-flex align-items-center">
             <div class="bg-light rounded-circle d-flex justify-content-center align-items-center me-2 fs-6" style="width: 38px; height: 38px;">
@@ -79,16 +79,16 @@
           </div>
         </div>
 
-        <!-- Card Body Details -->
+        
         <div class="teacher-card-details py-1 text-secondary small">
           
-          <!-- Name Row -->
+          
           <div class="mb-2">
             <strong class="text-muted d-block" style="font-size: 11px; text-transform: uppercase;">Full Name</strong>
             <span class="fw-bold text-dark fs-6">{{ teacher.name }}</span>
           </div>
 
-          <!-- Subject & Qualification -->
+          
           <div class="row mb-1">
             <div class="col-6">
               <strong class="text-muted d-block" style="font-size: 11px;">SUBJECT</strong>
@@ -100,7 +100,7 @@
             </div>
           </div>
 
-          <!-- Phone Row -->
+          
           <div class="row mb-1 mt-2">
             <div class="col-12">
               <strong class="text-muted d-block" style="font-size: 11px;">PHONE NUMBER</strong>
@@ -110,7 +110,7 @@
 
         </div>
 
-        <!-- Card Footer: Actions -->
+        
         <div class="d-flex justify-content-end gap-2 mt-3 pt-2 border-top" *ngIf="isAdmin">
           <button class="btn btn-sm btn-outline-primary px-3" (click)="openUpdateModal(teacher)">
             ✏️ Edit
@@ -123,7 +123,7 @@
       </div>
     </div>
 
-    <!-- Empty State for Mobile if array is empty -->
+    
     <div class="d-block d-md-none text-center py-5" *ngIf="teachers.length === 0">
       <div class="fs-1 mb-2">📭</div>
       <h5 class="fw-bold text-dark">No Teachers Found</h5>
@@ -133,7 +133,7 @@
   </div>
 </div>
 
-<!-- Add/Edit Modal -->
+
 <div id="addTeacherModal" class="modal-overlay" style="display: none;">
   <div class="modal-content">
     <div class="modal-header">
@@ -144,19 +144,19 @@
     <form [formGroup]="teacherForm" (ngSubmit)="saveTeacher()">
       <div class="form-grid">
         
-        <!-- Name -->
+        
         <div class="form-group">
           <label>Full Name</label>
           <input type="text" class="form-control" formControlName="name" placeholder="Enter name">
         </div>
 
-        <!-- Phone -->
+        
         <div class="form-group">
           <label>Phone Number</label>
           <input type="text" class="form-control" formControlName="phone" placeholder="10-digit number" maxlength="10">
         </div>
 
-        <!-- Department ID (Dropdown) -->
+        
         <div class="form-group">
           <label>Department</label>
           <select class="form-select" formControlName="departmentId">
@@ -167,31 +167,31 @@
           </select>
         </div>
 
-        <!-- Subject -->
+        
         <div class="form-group">
           <label>Subject</label>
           <input type="text" class="form-control" formControlName="subject" placeholder="e.g., Mathematics">
         </div>
 
-        <!-- Qualification -->
+        
         <div class="form-group">
           <label>Qualification</label>
           <input type="text" class="form-control" formControlName="qualification" placeholder="e.g., M.Sc, Ph.D">
         </div>
 
-        <!-- Salary -->
+        
         <div class="form-group">
           <label>Salary (₹)</label>
           <input type="number" class="form-control" formControlName="salary" placeholder="Enter amount">
         </div>
 
-        <!-- Joining Date -->
+        
         <div class="form-group">
           <label>Joining Date</label>
           <input type="date" class="form-control" formControlName="joiningDate">
         </div>
 
-        <!-- Address -->
+        
         <div class="form-group">
           <label>Address</label>
           <input type="text" class="form-control" formControlName="address" placeholder="Full address">

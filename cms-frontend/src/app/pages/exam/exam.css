@@ -1,6 +1,4 @@
-/* =========================================
-   Wrapper & Card (Main Layout)
-========================================= */
+
 .course-wrapper {
   background-color: #f4f6f9;
   min-height: calc(100vh - 70px);
@@ -15,9 +13,7 @@
   border: none;
 }
 
-/* =========================================
-   Header & Add Button
-========================================= */
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -48,9 +44,7 @@
   background-color: #1b4bbf;
 }
 
-/* =========================================
-   Exam Table Styling
-========================================= */
+
 .table-container {
   width: 100%;
   overflow-x: auto;
@@ -86,7 +80,7 @@ td {
   cursor: pointer;
 }
 
-/* Badge for Exam Time */
+
 .badge {
   background-color: #e4e6ef;
   color: #3f4254;
@@ -97,9 +91,7 @@ td {
   letter-spacing: 0.5px;
 }
 
-/* =========================================
-   Action Buttons (Edit/Delete)
-========================================= */
+
 .actions {
   display: flex;
   gap: 10px;
@@ -121,9 +113,7 @@ td {
 .btn-delete { color: #dc3545; border-color: #dc3545; }
 .btn-delete:hover { background-color: #dc3545; color: white; }
 
-/* =========================================
-   Modal Overlay & Content
-========================================= */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -176,9 +166,7 @@ td {
   color: #ffffff; 
 }
 
-/* =========================================
-   Form Elements (Specific for Exam Dates/Time)
-========================================= */
+
 form { padding: 20px 25px; }
 
 .form-grid {
@@ -195,7 +183,7 @@ form { padding: 20px 25px; }
   color: #3f4254; 
 }
 
-/* Added type selectors for better browser rendering of date/time pickers */
+
 .form-group input[type="text"], 
 .form-group input[type="date"], 
 .form-group input[type="time"], 
@@ -216,9 +204,7 @@ form { padding: 20px 25px; }
   background-color: #f5f8fa;
 }
 
-/* =========================================
-   Modal Footer & Buttons
-========================================= */
+
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -241,7 +227,7 @@ form { padding: 20px 25px; }
 .btn-save:hover:not(:disabled) { background-color: #1b4bbf; }
 .btn-save:disabled { background-color: #a0b7f6; cursor: not-allowed; }
 
-/* Har module ki table ke liye mobile responsive scroll */
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -250,11 +236,11 @@ form { padding: 20px 25px; }
 
 .table {
   width: 100%;
-  max-width: none; /* Table ko mobile par dabne se rokega */
-  white-space: nowrap; /* Text ko niche line mein tootne se bachayega */
+  max-width: none; 
+  white-space: nowrap; 
 }
 
-/* Mobile Card View Styling for Exam Management */
+
 .exam-mobile-card {
   transition: all 0.2s ease-in-out;
   border: 1px solid #eaeaea !important;
@@ -268,7 +254,7 @@ form { padding: 20px 25px; }
   color: #495057;
 }
 
-/* Form controls unified styling */
+
 .form-control, .form-select {
   padding: 8px 12px;
   border-radius: 6px;

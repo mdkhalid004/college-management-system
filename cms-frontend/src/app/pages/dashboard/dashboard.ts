@@ -19,16 +19,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private router = inject(Router); 
   private dashboardService = inject(DashboardService);
   private cdr = inject(ChangeDetectorRef);
-
-  // --- NAVBAR VARIABLES ---
   isProfileMenuOpen: boolean = false;
   isNotificationMenuOpen: boolean = false;
   searchText: string = '';
-  
-  // --- MOBILE SIDEBAR DRAWER VARIABLE ---
   isSidebarOpen: boolean = false;
-  
-  // --- ADMIN PROFILE & MODAL VARIABLES ---
   isProfileModalOpen: boolean = false;
   isSettingsModalOpen: boolean = false;
   profileActiveTab: 'view' | 'edit' | 'password' = 'view';
@@ -48,8 +42,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     newPassword: '',
     confirmPassword: ''
   };
-
-  // 👇 Settings Model Property
   settingsData: Settings = {
     isDarkMode: false,
     academicYear: '2026-2027'
@@ -67,7 +59,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    // 👇 Jab bhi koi module/route change hoga, saare menus/sidebar automatic close ho jayenge
     this.routerSubscription = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -125,22 +116,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.routerSubscription.unsubscribe();
     }
   }
-
-  // 👇 Global Click Listener: Kahin bhi click hone par menus aur mobile sidebar close ho jayenge
   @HostListener('document:click')
   onDocumentClick() {
     this.isProfileMenuOpen = false;
     this.isNotificationMenuOpen = false;
     this.isSidebarOpen = false;
   }
-
-  // 👇 Mobile Drawer Sidebar Toggle Function
   toggleSidebar(event?: Event) {
     event?.stopPropagation();
     this.isSidebarOpen = !this.isSidebarOpen;
   }
-
-  // 👇 Helper method agar aapko kisi module click par manually bhi call karna ho
   onModuleClick(event?: Event) {
     event?.stopPropagation();
     this.isProfileMenuOpen = false;
@@ -234,8 +219,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  // 👇 StopPropagation lagane se button click par menu turant close hokar dobara open nahi hoga
   toggleProfileMenu(event?: Event) { 
     event?.stopPropagation();
     this.isProfileMenuOpen = !this.isProfileMenuOpen; 

@@ -4,7 +4,7 @@
   <div class="card shadow-sm border-0" style="max-width: 600px;">
     <div class="card-body">
       
-      <!-- Profile Header (Photo & Name) -->
+      
       <div class="text-center mb-4">
         <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center mx-auto mb-3 shadow" style="width: 100px; height: 100px; font-size: 2.5rem;">
           A
@@ -16,12 +16,12 @@
 
       <hr>
 
-<!-- Profile Details Form -->
+
       <form class="mt-4">
         <div class="row mb-3">
           <div class="col-md-6">
             <label class="form-label text-muted fw-bold small">First Name</label>
-            <!-- [readonly] aur background color bind kiya gaya hai -->
+            
             <input type="text" class="form-control" [class.bg-light]="!isEditing" value="Admin" [readonly]="!isEditing">
           </div>
           <div class="col-md-6 mt-3 mt-md-0">
@@ -40,15 +40,15 @@
           <input type="text" class="form-control" [class.bg-light]="!isEditing" value="+91 9876543210" [readonly]="!isEditing">
         </div>
 
-        <!-- Real Edit & Save Buttons -->
+        
         <div class="d-flex justify-content-end">
           
-          <!-- Edit Button (Jab editing OFF ho tab dikhega) -->
+          
           <button *ngIf="!isEditing" type="button" class="btn btn-primary px-4" (click)="toggleEdit()">
             <i class="bi bi-pencil-square me-2"></i> Edit Profile
           </button>
           
-          <!-- Save Button (Jab editing ON ho tab dikhega) -->
+          
           <button *ngIf="isEditing" type="button" class="btn btn-success px-4" (click)="toggleEdit()">
             <i class="bi bi-check-circle me-2"></i> Save Changes
           </button>

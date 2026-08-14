@@ -1,13 +1,13 @@
 <div class="dashboard-wrapper">
   
-  <!-- 👇 MOBILE SIDEBAR BACKDROP OVERLAY 👇 -->
+  
   <div class="sidebar-overlay d-md-none" *ngIf="isSidebarOpen" (click)="toggleSidebar($event)"></div>
 
-  <!-- LEFT SIDEBAR -->
+  
   <div class="sidebar" [class.mobile-open]="isSidebarOpen" (click)="$event.stopPropagation()">
     <div class="sidebar-brand d-flex justify-content-between align-items-center">
       <span>🎓 CMS Admin</span>
-      <!-- Mobile Close Button inside sidebar -->
+      
       <button class="btn text-white d-md-none border-0 fs-5" (click)="toggleSidebar($event)">✖</button>
     </div>
     <div class="sidebar-nav">
@@ -17,7 +17,7 @@
       <a routerLink="/department" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🏫 Department</a>
       <a routerLink="/course" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📖 Course</a>
       
-      <!-- TIMETABLE -->
+      
       <a routerLink="/timetable" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🕒 Timetable</a>
       
       <a routerLink="/fees" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">💳 Fees</a>
@@ -30,16 +30,16 @@
     </div>
   </div>
 
-  <!-- RIGHT MAIN CONTENT -->
+  
   <div class="main-content">
   
-    <!-- TOP NAVBAR -->
+    
     <div class="top-navbar d-flex justify-content-between align-items-center">
       
-      <!-- Top Navbar ka Search Area (Left Side) with Live Dropdown & Hamburger Button -->
+      
       <div class="d-flex align-items-center gap-2 w-50 position-relative">
         
-        <!-- 👇 HAMBURGER TOGGLE BUTTON FOR MOBILE VIEW 👇 -->
+        
         <button class="btn btn-outline-secondary d-md-none px-2 py-1 border-0" (click)="toggleSidebar($event)">
           <i class="bi bi-list fs-4"></i>
         </button>
@@ -53,7 +53,7 @@
           (input)="onSearchInput($event)" 
           (keyup.enter)="onSearch()">
 
-        <!-- Live Search Results Dropdown -->
+        
         <div class="dropdown-menu shadow-lg border-0 mt-2 show w-100" *ngIf="searchResults.length > 0 || isSearching" style="position: absolute; top: 100%; left: 0; z-index: 1000; max-height: 350px; overflow-y: auto;">
           <div *ngIf="isSearching" class="px-3 py-2 text-muted text-center small">Searching...</div>
           
@@ -75,12 +75,12 @@
         </div>
       </div>
 
-      <!-- Profile Wrapper (Right Side) -->
+      
       <div class="d-flex align-items-center gap-4">
         
-        <!-- Profile Dropdown Area -->
+        
         <div class="admin-profile-container d-flex align-items-center gap-2" (click)="toggleProfileMenu($event)" style="cursor: pointer; position: relative;">
-          <!-- Navbar Small Avatar Support -->
+          
           <div class="profile-avatar-wrapper">
             <img *ngIf="adminProfile.avatar && adminProfile.avatar.length > 10; else textAvatarSm" 
                  [src]="adminProfile.avatar" 
@@ -93,7 +93,7 @@
 
           <span class="fw-bold d-none d-sm-inline">Admin</span>
           
-          <!-- Profile Dropdown Menu -->
+          
           <div class="dropdown-menu show shadow-sm border-0 mt-3" *ngIf="isProfileMenuOpen" (click)="$event.stopPropagation()" style="position: absolute; right: 0; top: 100%; z-index: 1000;">
             <ul class="list-unstyled mb-0 p-2">
               <li (click)="goToProfile()" class="dropdown-item rounded" style="cursor: pointer;"><i class="bi bi-person fs-5 me-2"></i> My Profile</li>
@@ -104,12 +104,12 @@
           </div>
         </div>
 
-      </div> <!-- Right side container end -->
-    </div> <!-- Top Navbar End -->
+      </div> 
+    </div> 
 
-    <!-- ========================================================= -->
-    <!-- 👇 YAHAN ROUTER-OUTLET HAI (Dynamic pages ke liye) 👇 -->
-    <!-- ========================================================= -->
+    
+    
+    
     <div class="dynamic-content-area p-3">
       <router-outlet></router-outlet>
     </div>
@@ -117,26 +117,26 @@
   </div>
 </div>
 
-<!-- ========================================================= -->
-<!-- 👇 MY PROFILE MODAL (POPUP) OVERLAY 👇 -->
-<!-- ========================================================= -->
+
+
+
 <div class="modal-backdrop-custom" *ngIf="isProfileModalOpen" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center;">
   <div class="card shadow-lg border-0 p-4" style="width: 450px; border-radius: 12px; background: white;">
     
-    <!-- Modal Header -->
+    
     <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
       <h5 class="fw-bold m-0">👤 Admin Profile</h5>
       <button type="button" class="btn-close" (click)="closeProfileModal()" style="cursor: pointer; background: transparent; border: 0; font-size: 1.2rem;">✖</button>
     </div>
 
-    <!-- Modal Tabs / Navigation -->
+    
     <div class="d-flex gap-2 mb-3">
       <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'view'" [class.btn-outline-primary]="profileActiveTab !== 'view'" (click)="profileActiveTab = 'view'">View Details</button>
       <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'edit'" [class.btn-outline-primary]="profileActiveTab !== 'edit'" (click)="profileActiveTab = 'edit'">Edit Profile</button>
       <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'password'" [class.btn-outline-primary]="profileActiveTab !== 'password'" (click)="profileActiveTab = 'password'">Change Password</button>
     </div>
 
-    <!-- TAB 1: VIEW DETAILS -->
+    
     <div *ngIf="profileActiveTab === 'view'" class="text-center py-3">
       <div class="profile-avatar-wrapper mb-3">
         <img *ngIf="adminProfile.avatar && adminProfile.avatar.length > 10; else textAvatar" 
@@ -160,7 +160,7 @@
       </div>
     </div>
 
-    <!-- TAB 2: EDIT PROFILE -->
+    
     <div *ngIf="profileActiveTab === 'edit'">
       <div class="text-center mb-3">
         <div class="profile-avatar-wrapper">
@@ -210,7 +210,7 @@
       </div>
     </div>
 
-    <!-- TAB 3: CHANGE PASSWORD -->
+    
     <div *ngIf="profileActiveTab === 'password'">
       <div class="mb-3">
         <label class="form-label small fw-bold">Current Password</label>
@@ -251,9 +251,9 @@
   </div>
 </div>
 
-<!-- ========================================================= -->
-<!-- 👇 SETTINGS MODAL (POPUP) OVERLAY 👇 -->
-<!-- ========================================================= -->
+
+
+
 <div class="modal-backdrop-custom" *ngIf="isSettingsModalOpen" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center;">
   <div class="card shadow-lg border-0 p-4" style="width: 420px; border-radius: 12px; background: white;">
     

@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { DepartmentService, Department } from '../../services/department.service'; // Path check kar lena
+import { DepartmentService, Department } from '../../services/department.service'; 
 
 @Component({
   selector: 'app-department',
@@ -19,14 +19,8 @@ export class DepartmentComponent implements OnInit {
 
   isLoading: boolean = false;
   errorMessage: string = '';
-
-  // 🔴 Track karega ki naya department add ho raha hai ya purana edit
   selectedDepartmentId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
-
-  // 🔴 Updated Form: Department Entity ke hisaab se fields
   departmentForm = new FormGroup({
     name: new FormControl('', Validators.required),
     hod: new FormControl('', Validators.required),
@@ -60,9 +54,9 @@ export class DepartmentComponent implements OnInit {
   }
 
   openModal() {
-    this.selectedDepartmentId = null; // Null matlab naya department
+    this.selectedDepartmentId = null;
     this.departmentForm.reset();
-    this.departmentForm.patchValue({ totalTeachers: 0, totalStudents: 0 }); // Default values
+    this.departmentForm.patchValue({ totalTeachers: 0, totalStudents: 0 }); 
     
     const modal = document.getElementById('addDepartmentModal');
     if (modal) {
@@ -80,8 +74,6 @@ export class DepartmentComponent implements OnInit {
       setTimeout(() => modal.style.display = 'none', 300);
     }
   }
-
-  // 🔴 SAVE FUNCTION
   saveDepartment() {
     if (this.departmentForm.valid) {
       const rawData = this.departmentForm.value;
@@ -94,7 +86,6 @@ export class DepartmentComponent implements OnInit {
       };
 
       if (this.selectedDepartmentId) {
-        // --- UPDATE API CALL ---
         this.departmentService.updateDepartment(this.selectedDepartmentId, departmentDataToSave as any).subscribe({
           next: () => {
             Swal.fire({
@@ -119,7 +110,6 @@ export class DepartmentComponent implements OnInit {
           }
         });
       } else {
-        // --- ADD/CREATE API CALL ---
         this.departmentService.addDepartment(departmentDataToSave).subscribe({
           next: () => {
             Swal.fire({
@@ -152,8 +142,6 @@ export class DepartmentComponent implements OnInit {
       });
     }
   }
-  
-  // 🔴 DELETE FUNCTION
   deleteDepartment(departmentId: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -193,8 +181,6 @@ export class DepartmentComponent implements OnInit {
       }
     });
   }
-
-  // 🔴 EDIT MODAL FUNCTION
   openUpdateModal(department: any) {
     this.selectedDepartmentId = department.departmentId; 
     

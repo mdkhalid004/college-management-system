@@ -1,7 +1,7 @@
 <div class="library-wrapper p-4">
   <div class="content-card">
     
-    <!-- Header -->
+    
     <div class="header-container d-flex justify-content-between align-items-center mb-4">
       <h2 class="fw-bold m-0" style="color: #1a1c24;">Library Management</h2>
       <button class="btn btn-primary px-4 py-2 btn-add" 
@@ -12,9 +12,9 @@
       </button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 💻 DESKTOP & TABLET VIEW (Standard Table)   -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="table-responsive d-none d-md-block table-container">
       <table class="table table-hover align-middle mb-0 text-nowrap">
         <thead class="table-custom-header">
@@ -61,13 +61,13 @@
       </table>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 📱 MOBILE VIEW (Card / Vertical List View) -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="d-block d-md-none p-2" *ngIf="libraryList.length > 0">
       <div class="library-mobile-card mb-3 p-3 bg-white border rounded-4 shadow-sm" *ngFor="let book of libraryList">
         
-        <!-- Card Header: ID & Fine -->
+        
         <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
           <div class="d-flex align-items-center">
             <div class="bg-light rounded-circle d-flex justify-content-center align-items-center me-2 fs-6" style="width: 38px; height: 38px;">
@@ -81,16 +81,16 @@
           </div>
         </div>
 
-        <!-- Card Body Details -->
+        
         <div class="library-card-details py-1 text-secondary small">
           
-          <!-- Book Name -->
+          
           <div class="mb-2">
             <strong class="text-muted d-block" style="font-size: 11px; text-transform: uppercase;">Book Name</strong>
             <span class="fw-bold text-dark fs-6">{{ book.name }}</span>
           </div>
 
-          <!-- Author & ISBN -->
+          
           <div class="row mb-1">
             <div class="col-7">
               <strong class="text-muted d-block" style="font-size: 11px;">AUTHOR</strong>
@@ -102,7 +102,7 @@
             </div>
           </div>
 
-          <!-- Issue & Return Date Grid -->
+          
           <div class="row mb-1 mt-2 bg-light p-2 rounded">
             <div class="col-6">
               <strong class="text-muted d-block" style="font-size: 11px;">ISSUE DATE</strong>
@@ -116,7 +116,7 @@
 
         </div>
 
-        <!-- Card Footer: Actions -->
+        
         <div class="d-flex justify-content-end gap-2 mt-3 pt-2 border-top" *ngIf="isAdmin">
           <button class="btn btn-sm btn-outline-primary px-3" (click)="openUpdateModal(book)">
             ✏️ Edit
@@ -129,7 +129,7 @@
       </div>
     </div>
 
-    <!-- Empty State for Mobile if array is empty -->
+    
     <div class="d-block d-md-none text-center py-5" *ngIf="libraryList.length === 0">
       <div class="fs-1 mb-2">📭</div>
       <h5 class="fw-bold text-dark">No Library Records Found</h5>
@@ -139,7 +139,7 @@
   </div>
 </div>
 
-<!-- Add/Edit Modal -->
+
 <div id="addLibraryModal" class="modal-overlay" style="display: none;">
   <div class="modal-content" style="max-width: 650px;">
     <div class="modal-header">
@@ -150,37 +150,37 @@
     <form [formGroup]="libraryForm" (ngSubmit)="saveLibrary()">
       <div class="form-grid">
         
-        <!-- Book Name -->
+        
         <div class="form-group">
           <label>Book Name <span style="color: red;">*</span></label>
           <input type="text" class="form-control" formControlName="name" placeholder="e.g., Introduction to Algorithms">
         </div>
 
-        <!-- Author -->
+        
         <div class="form-group">
           <label>Author <span style="color: red;">*</span></label>
           <input type="text" class="form-control" formControlName="author" placeholder="e.g., Thomas H. Cormen">
         </div>
 
-        <!-- ISBN -->
+        
         <div class="form-group">
           <label>ISBN <span style="color: red;">*</span></label>
           <input type="text" class="form-control" formControlName="isbn" placeholder="e.g., 978-0262033848">
         </div>
 
-        <!-- Fine -->
+        
         <div class="form-group">
           <label>Fine (₹) <span style="color: red;">*</span></label>
           <input type="number" class="form-control" formControlName="fine" placeholder="Enter fine amount">
         </div>
 
-        <!-- Issue Date -->
+        
         <div class="form-group">
           <label>Issue Date</label>
           <input type="date" class="form-control" formControlName="issueDate">
         </div>
 
-        <!-- Return Date -->
+        
         <div class="form-group">
           <label>Return Date</label>
           <input type="date" class="form-control" formControlName="returnDate">

@@ -57,7 +57,7 @@
 }
 
 
-/* --- Password Input Group Fix --- */
+
 .input-group {
   display: flex;
   align-items: stretch;
@@ -65,13 +65,13 @@
 }
 
 .input-group .form-control {
-  height: 42px; /* Apne baaki inputs ke height ke hisab se set kar sakte hain */
+  height: 42px; 
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .input-group .btn-outline-secondary {
-  height: 42px; /* Input ke barabar height */
+  height: 42px; 
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   display: flex;

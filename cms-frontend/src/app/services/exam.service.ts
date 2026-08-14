@@ -49,8 +49,6 @@ export class ExamService {
       responseType: 'text' as 'json' 
     }) as Observable<string>;
   }
-
-  // Course Dropdown ke liye
   getAllCourses(): Observable<any[]> {
     return this.http.get<any[]>(this.courseUrl, { headers: this.getHeaders() });
   }

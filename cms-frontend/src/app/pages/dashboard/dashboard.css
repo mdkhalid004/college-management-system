@@ -1,4 +1,4 @@
-/* Pura background color */
+
 .dashboard-wrapper {
   display: flex;
   min-height: 100vh;
@@ -7,7 +7,7 @@
   overflow-x: hidden;
 }
 
-/* Sidebar ka design (Fixed & Scrollable) */
+
 .sidebar {
   width: 260px;
   background-color: #1a1c24;
@@ -18,10 +18,10 @@
   left: 0;
   overflow-y: auto;
   z-index: 1000;
-  transition: left 0.3s ease-in-out; /* Mobile slide animation ke liye */
+  transition: left 0.3s ease-in-out; 
 }
 
-/* Sidebar Custom Scrollbar styling */
+
 .sidebar::-webkit-scrollbar {
   width: 5px;
 }
@@ -35,7 +35,7 @@
   font-size: 1.25rem;
   font-weight: bold;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  background-color: #1a1c24; /* Sticky feel ke liye */
+  background-color: #1a1c24; 
   position: sticky;
   top: 0;
   z-index: 10;
@@ -62,7 +62,7 @@
   color: white;
 }
 
-/* 🌟 Mobile Sidebar Overlay & Responsiveness */
+
 .sidebar-overlay {
   position: fixed;
   top: 0;
@@ -70,18 +70,18 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999; /* Sidebar ke theek niche */
+  z-index: 999; 
   backdrop-filter: blur(2px);
   animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Responsive Media Query for Mobile View */
+
 @media (max-width: 767.98px) {
   .sidebar {
-    left: -260px; /* Mobile par sidebar initially hidden rahega */
+    left: -260px; 
   }
   .sidebar.mobile-open {
-    left: 0; /* Toggle hone par slide hokar aayega */
+    left: 0; 
   }
   .main-content {
     margin-left: 0 !important;
@@ -89,7 +89,7 @@
   }
 }
 
-/* Main Content ka area */
+
 .main-content {
   margin-left: 260px;
   width: calc(100% - 260px);
@@ -97,7 +97,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* Navbar */
+
 .top-navbar {
   background-color: white;
   padding: 15px 30px;
@@ -107,44 +107,44 @@
   align-items: center;
 }
 
-/* Container ko relative rakhna zaroori hai taaki menu iske theek niche khule */
+
 .admin-profile-container {
   position: relative;
   cursor: pointer;
 }
 
-/* User ki normal info */
+
 .admin-info {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* 🌟 Dropdown Menu ka Asli Design */
+
 .dropdown-menu {
   position: absolute;
   top: 100%; 
   right: 0; 
   background: white;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Halka sa shadow 3D effect ke liye */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
   border-radius: 8px;
   width: 180px;
   min-width: 160px;
-  z-index: 1000; /* Taaki yeh baaki chizon ke upar dikhe */
+  z-index: 1000; 
   overflow: hidden;
   border: 1px solid #eee;
-  display: block; /* 👈 Yeh block होना जरुरी है */
+  display: block; 
   padding: 10px 0;
 }
 
-/* List ka style */
+
 .dropdown-menu ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* List Items (Options) */
+
 .dropdown-menu ul li, .dropdown-menu li {
   padding: 12px 16px;
   display: flex;
@@ -157,13 +157,13 @@
   cursor: pointer;
 }
 
-/* Hover par background color */
+
 .dropdown-menu ul li:hover, .dropdown-menu li:hover {
   background-color: #f1f5f9;
   color: #1f2937;
 }
 
-/* Logout button ko thoda alag (Red) dikhane ke liye */
+
 .logout-btn, .dropdown-menu .logout-btn, .logout-dir {
   border-top: 1px solid #f1f5f9;
   color: #e63946 !important;
@@ -174,12 +174,12 @@
   background-color: #fff0f0 !important;
 }
 
-/* Search results dropdown styling tweaks */
+
 .dropdown-item:hover {
   background-color: #f8f9fa;
 }
 
-/* Custom scrollbar for search results */
+
 .dropdown-menu::-webkit-scrollbar {
   width: 6px;
 }
@@ -189,7 +189,7 @@
   border-radius: 4px;
 }
 
-/* 🌟 Profile Modal / Popup Overlay Styles */
+
 .modal-backdrop-custom {
   backdrop-filter: blur(3px);
   animation: fadeIn 0.2s ease-in-out;

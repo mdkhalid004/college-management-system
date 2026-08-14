@@ -21,8 +21,6 @@ export class ResultComponent implements OnInit {
   
   isLoading: boolean = false;
   selectedResultId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
 
   resultForm = new FormGroup({
@@ -61,8 +59,6 @@ export class ResultComponent implements OnInit {
       error: () => this.isLoading = false
     });
   }
-
-  // 💡 Auto-Calculate Grade and Status based on Marks
   calculateGradeAndStatus() {
     const marks = Number(this.resultForm.get('marks')?.value) || 0;
     let grade = 'F';
@@ -76,8 +72,6 @@ export class ResultComponent implements OnInit {
 
     this.resultForm.patchValue({ grade, status });
   }
-
-  // Safe Displays to prevent "undefined" error
   getStudentDisplay(result: any): string {
     if (result.studentName) return result.studentName;
     if (result.student?.name) return result.student.name;
@@ -168,7 +162,6 @@ export class ResultComponent implements OnInit {
             this.loadAllResults(); 
           },
           error: (err) => {
-             // Handling 200 text response block 
              if(err.status === 200 || err.statusText === 'OK') {
                Swal.fire('Deleted!', 'Result deleted successfully.', 'success');
                this.loadAllResults();

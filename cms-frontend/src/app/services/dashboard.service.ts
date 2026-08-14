@@ -1,8 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-// --- MODELS (DTOs) ---
 export interface DashboardStats {
   totalStudents: number;
   totalTeachers: number;
@@ -45,15 +43,11 @@ export interface ChangePasswordDto {
   currentPassword: string;
   newPassword: string;
 }
-
-// 👇 Settings Interface added
 export interface Settings {
   id?: number;
   isDarkMode: boolean;
   academicYear: string;
 }
-
-// --- API SERVICE ---
 @Injectable({
   providedIn: 'root'
 })
@@ -62,7 +56,7 @@ export class DashboardService {
   private baseUrl = 'http://localhost:8080/api/v1/dashboard';
   private searchUrl = 'http://localhost:8080/api/search';
   private adminUrl = 'http://localhost:8080/api/v1/admin';
-  private settingsUrl = 'http://localhost:8080/api/settings'; // 👈 Settings API URL
+  private settingsUrl = 'http://localhost:8080/api/settings'; 
 
   getStats(): Observable<DashboardStats> { 
     return this.http.get<DashboardStats>(`${this.baseUrl}/stats`); 
@@ -83,14 +77,10 @@ export class DashboardService {
   getMonthlyAttendance(): Observable<MonthlyData[]> {
     return this.http.get<MonthlyData[]>(`${this.baseUrl}/monthly-attendance`);
   }
-
-  // --- Global Search API Call ---
   searchGlobal(query: string): Observable<SearchResultDto[]> {
     const params = new HttpParams().set('query', query);
     return this.http.get<SearchResultDto[]>(this.searchUrl, { params });
   }
-
-  // --- Admin Profile APIs ---
   getAdminProfile(): Observable<AdminProfileDto> {
     return this.http.get<AdminProfileDto>(`${this.adminUrl}/profile`);
   }
@@ -102,8 +92,6 @@ export class DashboardService {
   changePassword(passwordData: ChangePasswordDto): Observable<any> {
     return this.http.put(`${this.adminUrl}/change-password`, passwordData);
   }
-
-  // --- Settings APIs (Added) ---
   getSettings(): Observable<Settings> {
     return this.http.get<Settings>(this.settingsUrl);
   }

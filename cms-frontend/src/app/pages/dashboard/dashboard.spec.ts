@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardComponent } from './dashboard'; // Error yahan tha, maine path theek kar diya hai
+import { DashboardComponent } from './dashboard'; 
 
 describe('Dashboard', () => {
   let component: DashboardComponent;
@@ -7,7 +7,7 @@ describe('Dashboard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardComponent], // Angular 22 mein standalone components sidhe import hote hain
+      imports: [DashboardComponent], 
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

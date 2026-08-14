@@ -9,8 +9,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(
-      withFetch(), // Modern Angular fetch API enable karne ke liye
-      withInterceptors([authInterceptor, tokenInterceptor]) // Sabhi interceptors yahan ek sath array me rahenge
+      withFetch(), 
+      withInterceptors([authInterceptor, tokenInterceptor]) 
     )
   ]
 };

@@ -22,18 +22,12 @@ export class LoginComponent {
 
   onLogin() {
     console.log('Login button clicked with data:', this.loginData);
-
-    // Backend Login API call
     this.loginService.login(this.loginData).subscribe({
       next: (response: any) => {
         console.log('Login Success Response:', response);
-        
-        // Token save karein (Backend response ke structure ke mutabiq)
         const token = response.token || response.accessToken || response;
         if (token) {
           localStorage.setItem('authToken', token);
-
-          // 🌟 Pehle response se role check karein, agar na ho toh JWT token decode karke nikalein
           let role = response.role || response.userRole || response.user?.role;
           
           if (!role) {
@@ -46,8 +40,6 @@ export class LoginComponent {
               
               const decodedToken = JSON.parse(jsonPayload);
               console.log('Decoded Token:', decodedToken);
-              
-              // Token ke andar se role ya email ke base par role set karna
               role = decodedToken.role || decodedToken.authorities?.[0] || (decodedToken.sub === 'mdkhalid952338@gmail.com' ? 'ADMIN' : 'STUDENT');
             } catch (e) {
               console.error('Error decoding token for role', e);
@@ -58,14 +50,10 @@ export class LoginComponent {
             localStorage.setItem('userRole', role);
           }
         }
-
-        // 🌟 Avatar save karein taaki dashboard khulte hi turant dikhe
         const avatar = response.avatar || response.adminAvatar || response.user?.avatar;
         if (avatar) {
           localStorage.setItem('adminAvatar', avatar);
         }
-
-        // Dashboard par bhej dein
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
@@ -78,11 +66,7 @@ export class LoginComponent {
       }
     });
   }
-
-  // Password visibility toggle variable
   showPassword: boolean = false;
-
-  // Password toggle function
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   } 

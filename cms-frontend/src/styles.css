@@ -1,12 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+
 
 .swal2-container {
   z-index: 9999 !important;
 }
 
-/* ========================================== */
-/* 🔥 ULTIMATE FORCED DARK MODE OVERRIDE      */
-/* ========================================== */
+
+
+
 
 body.dark-theme {
   background-color: #121212 !important;
@@ -66,9 +66,9 @@ body.dark-theme .form-control::placeholder {
   color: #888888 !important;
 }
 
-/* ========================================== */
-/* --- MOBILE RESPONSIVE & DRAWER STYLES ---  */
-/* ========================================== */
+
+
+
 @media (max-width: 768px) {
   
 

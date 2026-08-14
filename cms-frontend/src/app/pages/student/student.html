@@ -1,7 +1,7 @@
 <div class="student-wrapper p-4">
   <div class="content-card">
     
-    <!-- Header -->
+    
     <div class="header-container d-flex justify-content-between align-items-center mb-4">
       <h2 class="fw-bold m-0" style="color: #1a1c24;">Student Management</h2>
       <button class="btn btn-primary px-4 py-2 btn-add" 
@@ -12,7 +12,7 @@
       </button>
     </div>
 
-    <!-- Loading State -->
+    
     <div *ngIf="isLoading" class="text-center py-5">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -20,15 +20,15 @@
       <p class="mt-3 text-muted fw-bold">Fetching students data, please wait...</p>
     </div>
 
-    <!-- Error State -->
+    
     <div *ngIf="errorMessage" class="alert alert-danger d-flex align-items-center" role="alert">
       <span class="fs-4 me-2">⚠️</span>
       <div>{{ errorMessage }}</div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 💻 DESKTOP & TABLET VIEW (Standard Table)   -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="table-responsive d-none d-md-block table-container" *ngIf="!isLoading && !errorMessage && students.length > 0">
       <table class="table table-hover align-middle mb-0 text-nowrap">
         <thead class="table-custom-header">
@@ -65,7 +65,7 @@
                 {{ student.feeStatus }}
               </span>
             </td>
-            <!-- EDIT & DELETE BUTTONS -->
+            
             <td class="text-center actions" *ngIf="isAdmin">
               <button class="btn btn-sm btn-outline-primary me-2 btn-edit" title="Edit" (click)="openUpdateModal(student)">
                 ✏️ Edit
@@ -79,13 +79,13 @@
       </table>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 📱 MOBILE VIEW (Card / Vertical List View) -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="d-block d-md-none p-2" *ngIf="!isLoading && !errorMessage && students.length > 0">
       <div class="student-mobile-card mb-3 p-3 bg-white border rounded-4 shadow-sm" *ngFor="let student of students">
         
-        <!-- Card Header: Student Avatar & ID -->
+        
         <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
           <div class="d-flex align-items-center">
             <div class="bg-light rounded-circle d-flex justify-content-center align-items-center me-2 fs-6" style="width: 38px; height: 38px;">
@@ -95,7 +95,7 @@
               <small class="text-muted fw-bold">Student ID: #{{ student.studentId }}</small>
             </div>
           </div>
-          <!-- Fee Status -->
+          
           <div class="text-end">
             <small class="text-muted d-block" style="font-size: 11px;">Fee Status</small>
             <span class="status-badge" [ngClass]="student.feeStatus === 'PAID' ? 'status-paid' : 'status-unpaid'">
@@ -104,7 +104,7 @@
           </div>
         </div>
 
-        <!-- Card Body Details -->
+        
         <div class="student-card-details py-1 text-secondary small">
           <div class="mb-2">
             <strong class="text-muted d-block" style="font-size: 11px; text-transform: uppercase;">Full Name</strong>
@@ -139,7 +139,7 @@
           </div>
         </div>
 
-        <!-- Card Footer: Actions -->
+        
         <div class="d-flex justify-content-end gap-2 mt-3 pt-2 border-top" *ngIf="isAdmin">
           <button class="btn btn-sm btn-outline-primary px-3" (click)="openUpdateModal(student)">✏️ Edit</button>
           <button class="btn btn-sm btn-outline-danger px-3" (click)="deleteStudent(student.studentId!)">🗑️ Delete</button>
@@ -148,7 +148,7 @@
       </div>
     </div>
 
-    <!-- Empty State -->
+    
     <div *ngIf="!isLoading && !errorMessage && students.length === 0" class="text-center py-5">
       <div class="fs-1 mb-2">📭</div>
       <h5 class="fw-bold text-dark">No Students Found</h5>
@@ -158,9 +158,9 @@
   </div>
 </div>
 
-<!-- ========================================== -->
-<!-- 🔴 MODAL (Matched to Teacher Module Layout) -->
-<!-- ========================================== -->
+
+
+
 <div id="addStudentModal" class="modal-overlay" style="display: none;">
   <div class="modal-content">
     

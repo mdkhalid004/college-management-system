@@ -10,8 +10,8 @@ export interface Attendance {
   courseName?: string;
   student?: any;
   course?: any;
-  date: string; // YYYY-MM-DD
-  status: string; // e.g., 'PRESENT', 'ABSENT'
+  date: string; 
+  status: string; 
 }
 
 @Injectable({
@@ -47,8 +47,6 @@ export class AttendanceService {
       responseType: 'text' as 'json' 
     }) as Observable<string>;
   }
-
-  // Helper methods for dropdowns
   getAllStudents(): Observable<any[]> {
     return this.http.get<any[]>(this.studentUrl, { headers: this.getHeaders() });
   }

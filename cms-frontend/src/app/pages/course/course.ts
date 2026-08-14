@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { CourseService, Course } from '../../services/course.service'; // Path verify kar lena
+import { CourseService, Course } from '../../services/course.service'; 
 
 @Component({
   selector: 'app-course',
@@ -20,14 +20,8 @@ export class CourseComponent implements OnInit {
 
   isLoading: boolean = false;
   errorMessage: string = '';
-
-  // 🔴 Track karega ki naya course add ho raha hai ya edit
   selectedCourseId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
-
-  // 🔴 Reactive Form: Course Entity ke fields
   courseForm = new FormGroup({
     name: new FormControl('', Validators.required),
     departmentId: new FormControl('', Validators.required),
@@ -42,8 +36,6 @@ export class CourseComponent implements OnInit {
     this.loadAllCourses();
     this.loadDepartments();
   }
-
-  // Department Dropdown ke liye data load karna
   loadDepartments() {
     this.courseService.getAllDepartments().subscribe({
       next: (data: any) => {
@@ -52,8 +44,6 @@ export class CourseComponent implements OnInit {
       error: (err) => console.error('❌ Departments load nahi hue:', err)
     });
   }
-
-  // Saare Courses load karna
   loadAllCourses() {
     this.isLoading = true;
     this.errorMessage = '';
@@ -73,9 +63,9 @@ export class CourseComponent implements OnInit {
   }
 
   openModal() {
-    this.selectedCourseId = null; // Null matlab naya course
+    this.selectedCourseId = null; 
     this.courseForm.reset();
-    this.courseForm.patchValue({ departmentId: '', totalFees: 0 }); // Dropdown & fee reset
+    this.courseForm.patchValue({ departmentId: '', totalFees: 0 });
     
     const modal = document.getElementById('addCourseModal');
     if (modal) {
@@ -93,8 +83,6 @@ export class CourseComponent implements OnInit {
       setTimeout(() => modal.style.display = 'none', 300);
     }
   }
-
-  // 🔴 SAVE / UPDATE FUNCTION
   saveCourse() {
     if (this.courseForm.valid) {
       const rawData = this.courseForm.value;
@@ -107,7 +95,6 @@ export class CourseComponent implements OnInit {
       };
 
       if (this.selectedCourseId) {
-        // --- UPDATE API CALL ---
         this.courseService.updateCourse(this.selectedCourseId, courseDataToSave).subscribe({
           next: () => {
             Swal.fire({
@@ -132,7 +119,6 @@ export class CourseComponent implements OnInit {
           }
         });
       } else {
-        // --- CREATE API CALL ---
         this.courseService.addCourse(courseDataToSave).subscribe({
           next: () => {
             Swal.fire({
@@ -165,8 +151,6 @@ export class CourseComponent implements OnInit {
       });
     }
   }
-  
-  // 🔴 DELETE FUNCTION
   deleteCourse(courseId: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -206,8 +190,6 @@ export class CourseComponent implements OnInit {
       }
     });
   }
-
-  // 🔴 EDIT MODAL FUNCTION
   openUpdateModal(course: any) {
     this.selectedCourseId = course.courseId; 
     

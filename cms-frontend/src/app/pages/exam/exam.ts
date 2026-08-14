@@ -21,8 +21,6 @@ export class ExamComponent implements OnInit {
   isLoading: boolean = false;
   errorMessage: string = '';
   selectedExamId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
 
   examForm = new FormGroup({
@@ -67,8 +65,6 @@ export class ExamComponent implements OnInit {
       }
     });
   }
-
-  // Safe display method for Course Name
   getCourseDisplay(exam: any): string {
     if (exam.courseName) return exam.courseName;
     if (exam.course) {

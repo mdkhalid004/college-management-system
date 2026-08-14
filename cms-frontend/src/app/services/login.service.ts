@@ -25,8 +25,6 @@ export class LoginService {
   getToken(): string | null {
     return localStorage.getItem('authToken');
   }
-
-  // 🌟 Avatar storage methods added
   saveAvatar(avatar: string): void {
     if (avatar) {
       localStorage.setItem('adminAvatar', avatar);
@@ -39,7 +37,7 @@ export class LoginService {
 
   logout(): void {
     localStorage.removeItem('authToken');
-    localStorage.removeItem('adminAvatar'); // 👈 Logout par avatar bhi clear ho jayega
+    localStorage.removeItem('adminAvatar');
   }
 
   isLoggedIn(): boolean {

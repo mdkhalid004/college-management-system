@@ -21,20 +21,16 @@ export interface Timetable {
 })
 export class TimetableService {
   private http = inject(HttpClient);
-  
-  // Base URLs for API calls
   private apiUrl = 'http://localhost:8080/api/v1/timetable';
-  private departmentUrl = 'http://localhost:8080/api/v1/departments'; // Adjust if your endpoint is different
+  private departmentUrl = 'http://localhost:8080/api/v1/departments';
   private courseUrl = 'http://localhost:8080/api/v1/courses';
-  private teacherUrl = 'http://localhost:8080/api/v1/teachers'; // Adjust if your endpoint is different
+  private teacherUrl = 'http://localhost:8080/api/v1/teachers'; 
 
   private tempToken = 'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJyYWh1bC5zaGFybWFAZXhhbXBsZS5jb20iLCJpYXQiOjE3ODUzMzIxMDEsImV4cCI6MTc4NzkyNDEwMX0.E6RAFfQe83wmdazz4AMUrqwXZPKv76sxCxLpfg8uS4wYrsrcdx4tw19pHdpVIQkp';
 
   private getHeaders() {
     return new HttpHeaders().set('Authorization', `Bearer ${this.tempToken}`);
   }
-
-  // CRUD Operations
   getAllTimetables(): Observable<Timetable[]> {
     return this.http.get<Timetable[]>(this.apiUrl, { headers: this.getHeaders() });
   }
@@ -53,8 +49,6 @@ export class TimetableService {
       responseType: 'text' as 'json' 
     }) as Observable<string>;
   }
-
-  // Dropdown helper methods
   getAllDepartments(): Observable<any[]> {
     return this.http.get<any[]>(this.departmentUrl, { headers: this.getHeaders() });
   }

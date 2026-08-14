@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { TimetableService, Timetable } from '../../services/timetable.service'; // Ensure correct path
+import { TimetableService, Timetable } from '../../services/timetable.service'; 
 
 @Component({
   selector: 'app-timetable',
@@ -16,19 +16,13 @@ export class TimetableComponent implements OnInit {
   cdr = inject(ChangeDetectorRef);
 
   timetablesList: Timetable[] = [];
-  
-  // Dropdown lists
   departmentList: any[] = [];
   courseList: any[] = [];
   teacherList: any[] = [];
   
   isLoading: boolean = false;
   selectedTimetableId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
-
-  // Reactive Form based on TimetableDto
   timetableForm = new FormGroup({
     departmentId: new FormControl('', Validators.required),
     semester: new FormControl('', Validators.required),
@@ -141,7 +135,6 @@ export class TimetableComponent implements OnInit {
             this.loadAllTimetables(); 
           },
           error: (err) => {
-             // Handling 200 text response block 
              if(err.status === 200 || err.statusText === 'OK') {
                Swal.fire('Deleted!', 'Schedule deleted successfully.', 'success');
                this.loadAllTimetables();

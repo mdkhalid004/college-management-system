@@ -1,7 +1,7 @@
 <div class="result-wrapper p-4">
   <div class="content-card">
     
-    <!-- Header -->
+    
     <div class="header-container d-flex justify-content-between align-items-center mb-4">
       <h2 class="fw-bold m-0" style="color: #1a1c24;">Results Board</h2>
       <button class="btn btn-primary px-4 py-2 btn-add" 
@@ -12,9 +12,9 @@
       </button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 💻 DESKTOP & TABLET VIEW (Standard Table)   -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="table-responsive d-none d-md-block table-container">
       <table class="table table-hover align-middle mb-0 text-nowrap">
         <thead class="table-custom-header">
@@ -65,13 +65,13 @@
       </table>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 📱 MOBILE VIEW (Card / Vertical List View) -->
-    <!-- ========================================== -->
+    
+    
+    
     <div class="d-block d-md-none p-2" *ngIf="resultsList.length > 0">
       <div class="result-mobile-card mb-3 p-3 bg-white border rounded-4 shadow-sm" *ngFor="let res of resultsList">
         
-        <!-- Card Header: ID & Status Badge -->
+        
         <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
           <div class="d-flex align-items-center">
             <div class="bg-light rounded-circle d-flex justify-content-center align-items-center me-2 fs-6" style="width: 38px; height: 38px;">
@@ -86,22 +86,22 @@
           </span>
         </div>
 
-        <!-- Card Body Details -->
+        
         <div class="result-card-details py-1 text-secondary small">
           
-          <!-- Student Name -->
+          
           <div class="mb-2">
             <strong class="text-muted d-block" style="font-size: 11px; text-transform: uppercase;">Student Name</strong>
             <span class="fw-bold text-dark fs-6">{{ res.studentName }}</span>
           </div>
 
-          <!-- Course -->
+          
           <div class="mb-2">
             <strong class="text-muted d-block" style="font-size: 11px; text-transform: uppercase;">Course</strong>
             <span class="fw-medium text-dark">{{ res.courseName }}</span>
           </div>
 
-          <!-- Marks & Grade Grid -->
+          
           <div class="row mb-1 mt-2 bg-light p-2 rounded">
             <div class="col-6">
               <strong class="text-muted d-block" style="font-size: 11px;">MARKS</strong>
@@ -115,7 +115,7 @@
 
         </div>
 
-        <!-- Card Footer: Actions -->
+        
         <div class="d-flex justify-content-end gap-2 mt-3 pt-2 border-top" *ngIf="isAdmin">
           <button class="btn btn-sm btn-outline-primary px-3" (click)="openUpdateModal(res)">
             ✏️ Edit
@@ -128,7 +128,7 @@
       </div>
     </div>
 
-    <!-- Empty State for Mobile if array is empty -->
+    
     <div class="d-block d-md-none text-center py-5" *ngIf="resultsList.length === 0">
       <div class="fs-1 mb-2">📭</div>
       <h5 class="fw-bold text-dark">No Results Found</h5>
@@ -138,7 +138,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+
 <div id="addResultModal" class="modal-overlay" style="display: none;">
   <div class="modal-content" style="max-width: 650px;">
     <div class="modal-header">
@@ -149,7 +149,7 @@
     <form [formGroup]="resultForm" (ngSubmit)="saveResult()">
       <div class="form-grid">
         
-        <!-- Student -->
+        
         <div class="form-group">
           <label>Student <span style="color: red;">*</span></label>
           <select class="form-select" formControlName="studentId">
@@ -160,7 +160,7 @@
           </select>
         </div>
 
-        <!-- Course -->
+        
         <div class="form-group">
           <label>Course <span style="color: red;">*</span></label>
           <select class="form-select" formControlName="courseId">
@@ -171,19 +171,19 @@
           </select>
         </div>
 
-        <!-- Marks (Triggers auto-calc) -->
+        
         <div class="form-group" style="grid-column: span 2;">
           <label>Marks (Out of 100) <span style="color: red;">*</span></label>
           <input type="number" class="form-control" formControlName="marks" (keyup)="calculateGradeAndStatus()" (change)="calculateGradeAndStatus()" placeholder="Enter Marks (e.g. 85)">
         </div>
 
-        <!-- Grade -->
+        
         <div class="form-group">
           <label>Grade</label>
           <input type="text" class="form-control" formControlName="grade" readonly style="background-color: #f8f9fa; font-weight: bold;">
         </div>
 
-        <!-- Status -->
+        
         <div class="form-group">
           <label>Status</label>
           <select class="form-select" formControlName="status" style="background-color: #f8f9fa; font-weight: bold; pointer-events: none;">

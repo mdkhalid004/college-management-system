@@ -18,8 +18,6 @@ export class EventComponent implements OnInit {
   eventList: Event[] = [];
   isLoading: boolean = false;
   selectedEventId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
 
   eventForm = new FormGroup({
@@ -42,8 +40,6 @@ export class EventComponent implements OnInit {
     this.eventService.getAllEvents().subscribe({
       next: (data: any) => {
         this.eventList = Array.isArray(data) ? data : (data.content || []);
-        
-        // Upcoming events first logic (Optional sorting)
         this.eventList.sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
         
         this.isLoading = false;
@@ -76,8 +72,6 @@ export class EventComponent implements OnInit {
   saveEvent() {
     if (this.eventForm.valid) {
       const dataToSave = this.eventForm.value;
-
-      // Ensure time has seconds if the backend strictly expects LocalTime (HH:mm:ss)
       if (dataToSave.eventTime && dataToSave.eventTime.length === 5) {
         dataToSave.eventTime = dataToSave.eventTime + ':00';
       }
@@ -132,8 +126,6 @@ export class EventComponent implements OnInit {
 
   openUpdateModal(event: any) {
     this.selectedEventId = event.eventId; 
-    
-    // Convert HH:mm:ss to HH:mm for the HTML input[type=time]
     let formattedTime = event.eventTime;
     if (formattedTime && formattedTime.length === 8) {
       formattedTime = formattedTime.substring(0, 5); 

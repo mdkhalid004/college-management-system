@@ -1,4 +1,4 @@
-/* Same Global CMS Layout Styling */
+
 .course-wrapper { background-color: #f4f6f9; min-height: calc(100vh - 70px); padding: 24px; }
 .content-card { background-color: white; border-radius: 10px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: none; }
 .header-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -12,7 +12,7 @@ td { padding: 15px; border-bottom: 1px solid #e9ecef; color: #495057; font-size:
 .table-hover tbody tr:hover { background-color: #f8faff; cursor: pointer; }
 .badge { background-color: #e4e6ef; color: #3f4254; padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
 
-/* Status Badge - PASS / FAIL */
+
 .status-badge {
   padding: 5px 12px;
   border-radius: 30px;
@@ -50,7 +50,7 @@ form { padding: 20px 25px; }
 .btn-save:hover:not(:disabled) { background-color: #1b4bbf; }
 .btn-save:disabled { background-color: #a0b7f6; cursor: not-allowed; }
 
-/* Har module ki table ke liye mobile responsive scroll */
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -59,11 +59,11 @@ form { padding: 20px 25px; }
 
 .table {
   width: 100%;
-  max-width: none; /* Table ko mobile par dabne se rokega */
-  white-space: nowrap; /* Text ko niche line mein tootne se bachayega */
+  max-width: none; 
+  white-space: nowrap; 
 }
 
-/* Mobile Card View Styling for Results Board */
+
 .result-mobile-card {
   transition: all 0.2s ease-in-out;
   border: 1px solid #eaeaea !important;
@@ -77,7 +77,7 @@ form { padding: 20px 25px; }
   color: #495057;
 }
 
-/* Form controls unified alignment */
+
 .form-control, .form-select {
   padding: 8px 12px;
   border-radius: 6px;

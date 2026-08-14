@@ -20,8 +20,6 @@ export class LibraryComponent implements OnInit {
   errorMessage: string = '';
 
   selectedBookId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
 
   libraryForm = new FormGroup({

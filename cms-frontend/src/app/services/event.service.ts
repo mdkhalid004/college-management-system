@@ -6,8 +6,8 @@ export interface Event {
   eventId?: number;
   eventName: string;
   description: string;
-  eventDate: string; // YYYY-MM-DD
-  eventTime: string; // HH:mm:ss
+  eventDate: string; 
+  eventTime: string; 
   venue: string;
 }
 

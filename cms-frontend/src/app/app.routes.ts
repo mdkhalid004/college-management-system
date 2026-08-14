@@ -18,20 +18,13 @@ import { authGuard } from './guards/auth.guard';
 import { RegisterComponent } from './pages/register/register';
 
 export const routes: Routes = [
-  
-  // 1. Login Page (Standalone - No Sidebar/Navbar)
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-
-  // 2. Default redirection to login page
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-
-
-  // 3. Main Dashboard Layout (Secured with AuthGuard - Sidebar & Navbar included)
   {
     path: '',
     component: DashboardComponent, 
-    canActivate: [authGuard], // Yeh guard iske saare child routes ko protect kar dega
+    canActivate: [authGuard], 
     children: [
     
       { path: 'dashboard', component: DashboardHomeComponent },
@@ -49,7 +42,5 @@ export const routes: Routes = [
       { path: 'timetable', component: TimetableComponent }
     ]
   },
-
-  // 4. Wildcard Route (Agar koi galat URL dale toh login par bhej do)
   { path: '**', redirectTo: 'login' }
 ];

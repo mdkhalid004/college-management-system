@@ -21,8 +21,6 @@ export class AttendanceComponent implements OnInit {
   
   isLoading: boolean = false;
   selectedAttendanceId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
 
   attendanceForm = new FormGroup({
@@ -54,7 +52,6 @@ export class AttendanceComponent implements OnInit {
     this.attendanceService.getAllAttendances().subscribe({
       next: (data: any) => {
         this.attendanceList = Array.isArray(data) ? data : (data.content || []);
-        // Sort by most recent date first
         this.attendanceList.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         this.isLoading = false;
         this.cdr.detectChanges();
@@ -62,8 +59,6 @@ export class AttendanceComponent implements OnInit {
       error: () => this.isLoading = false
     });
   }
-
-  // Safe Displays to prevent "undefined" error if backend doesn't send populated objects
   getStudentDisplay(record: any): string {
     if (record.studentName) return record.studentName;
     if (record.student?.name) return record.student.name;
@@ -90,8 +85,6 @@ export class AttendanceComponent implements OnInit {
   openModal() {
     this.selectedAttendanceId = null;
     this.attendanceForm.reset({ studentId: '', courseId: '', status: '' });
-    
-    // Auto-fill today's date
     this.attendanceForm.patchValue({
       date: new Date().toISOString().split('T')[0]
     });

@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { FeesService, Fees } from '../../services/fees.service'; // Path verify kar lena
+import { FeesService, Fees } from '../../services/fees.service'; 
 
 @Component({
   selector: 'app-fees',
@@ -17,20 +17,12 @@ export class FeesComponent implements OnInit {
 
   feesList: Fees[] = [];
   studentList: any[] = []; 
-  
-  // Enum/Dropdown values for Payment Mode
   paymentModes: string[] = ['CASH', 'UPI', 'CARD', 'BANK_TRANSFER', 'CHEQUE'];
 
   isLoading: boolean = false;
   errorMessage: string = '';
-
-  // 🔴 Track karega ki nayi fees add ho rahi hai ya edit
   selectedReceiptId: number | null = null;
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
-
-  // 🔴 Reactive Form: Fees Entity ke fields
   feesForm = new FormGroup({
     receiptNo: new FormControl('', Validators.required),
     studentId: new FormControl('', Validators.required),
@@ -39,7 +31,7 @@ export class FeesComponent implements OnInit {
     dueAmount: new FormControl(0, [Validators.required, Validators.min(0)]),
     paymentDate: new FormControl('', Validators.required),
     paymentMode: new FormControl('', Validators.required),
-    transactionId: new FormControl('') // Optional for CASH
+    transactionId: new FormControl('') 
   });
 
   ngOnInit() {
@@ -48,34 +40,21 @@ export class FeesComponent implements OnInit {
 
     this.loadAllFees();
     this.loadStudents();
-
-  // 💡 Pro-tip: Auto-calculate Due Amount jab user total ya paid amount enter kare
     this.feesForm.valueChanges.subscribe(values => {
-      // != null check se null aur undefined dono filter ho jayenge
       if (values.totalFees != null && values.paidAmount != null) {
-        // TypeScript error hatane ke liye explicitly Number() use kiya hai
         const calculatedDue = Number(values.totalFees) - Number(values.paidAmount);
-        
-        // Infinite loop na bane isliye { emitEvent: false } use kiya hai
         if (this.feesForm.get('dueAmount')?.value !== calculatedDue) {
            this.feesForm.patchValue({ dueAmount: calculatedDue }, { emitEvent: false });
         }
       }
     });
   }
-
-  // 💡 Table mein student ka naam safely display karne ke liye helper method
   getStudentDisplay(fee: any): string {
-    // 1. Agar backend direct 'studentName' bhej raha hai
     if (fee.studentName) return fee.studentName;
-    
-    // 2. Agar backend nested 'student' object bhej raha hai
     if (fee.student) {
       if (fee.student.name) return fee.student.name;
       if (fee.student.firstName) return `${fee.student.firstName} ${fee.student.lastName || ''}`.trim();
     }
-
-    // 3. Agar backend ne sirf 'studentId' bheja hai, toh hum 'studentList' se naam dhoondhenge!
     if (fee.studentId && this.studentList.length > 0) {
       const foundStudent = this.studentList.find(s => s.studentId === fee.studentId || s.id === fee.studentId);
       if (foundStudent) {
@@ -83,12 +62,8 @@ export class FeesComponent implements OnInit {
       }
       return `Student #${fee.studentId}`;
     }
-
-    // 4. Kuch na mile toh ID dikha do
     return `Student #${fee.studentId || fee.receiptId || 'N/A'}`;
   }
-
-  // Student Dropdown ke liye data load karna
   loadStudents() {
     this.feesService.getAllStudents().subscribe({
       next: (data: any) => {
@@ -97,8 +72,6 @@ export class FeesComponent implements OnInit {
       error: (err) => console.error('❌ Students load nahi hue:', err)
     });
   }
-
-  // Saare Fees records load karna
   loadAllFees() {
     this.isLoading = true;
     this.errorMessage = '';
@@ -118,17 +91,15 @@ export class FeesComponent implements OnInit {
   }
 
   openModal() {
-    this.selectedReceiptId = null; // Null matlab naya record
+    this.selectedReceiptId = null; 
     this.feesForm.reset();
-    
-    // Default values set karna
     this.feesForm.patchValue({ 
       studentId: '', 
       paymentMode: '',
       totalFees: 0,
       paidAmount: 0,
       dueAmount: 0,
-      paymentDate: new Date().toISOString().split('T')[0] // Aaj ki date default
+      paymentDate: new Date().toISOString().split('T')[0] 
     }); 
     
     const modal = document.getElementById('addFeesModal');
@@ -147,8 +118,6 @@ export class FeesComponent implements OnInit {
       setTimeout(() => modal.style.display = 'none', 300);
     }
   }
-
-  // 🔴 SAVE / UPDATE FUNCTION
   saveFees() {
     if (this.feesForm.valid) {
       const rawData = this.feesForm.value;
@@ -165,7 +134,6 @@ export class FeesComponent implements OnInit {
       };
 
       if (this.selectedReceiptId) {
-        // --- UPDATE API CALL ---
         this.feesService.updateFees(this.selectedReceiptId, feesDataToSave).subscribe({
           next: () => {
             Swal.fire({
@@ -190,7 +158,6 @@ export class FeesComponent implements OnInit {
           }
         });
       } else {
-        // --- CREATE API CALL ---
         this.feesService.addFees(feesDataToSave).subscribe({
           next: () => {
             Swal.fire({
@@ -223,8 +190,6 @@ export class FeesComponent implements OnInit {
       });
     }
   }
-  
-  // 🔴 DELETE FUNCTION
   deleteFees(receiptId: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -264,8 +229,6 @@ export class FeesComponent implements OnInit {
       }
     });
   }
-
-  // 🔴 EDIT MODAL FUNCTION
   openUpdateModal(fee: any) {
     this.selectedReceiptId = fee.receiptId; 
     

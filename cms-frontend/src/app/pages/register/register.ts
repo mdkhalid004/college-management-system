@@ -16,7 +16,7 @@ export class RegisterComponent {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '', // ✅ Phone field yahan add kar di gayi hai
+    phone: '', 
     password: '',
     role: 'STUDENT'
   };
@@ -39,12 +39,8 @@ export class RegisterComponent {
       }
     });
   }
-
-  // Password visibility toggle variables
 showPassword: boolean = false;
 showConfirmPassword: boolean = false;
-
-// Password toggle function
 togglePasswordVisibility(field: 'password' | 'confirm') {
   if (field === 'password') {
     this.showPassword = !this.showPassword;

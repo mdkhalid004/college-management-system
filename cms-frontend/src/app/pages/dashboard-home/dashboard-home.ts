@@ -2,8 +2,6 @@ import { Component, OnInit, inject, PLATFORM_ID, ChangeDetectorRef } from '@angu
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { Chart, registerables } from 'chart.js';
-
-// Service ka path same rahega kyunki folder structure same level par hai
 import { 
   DashboardService, 
   DashboardStats, 
@@ -20,17 +18,11 @@ Chart.register(...registerables);
   imports: [CommonModule], 
   templateUrl: './dashboard-home.html',
   styleUrls: ['./dashboard-home.css']
-  // Agar CSS file banayi hai iske liye toh neeche wali line uncomment kar lena:
-  // styleUrls: ['./dashboard-home.component.css'] 
 })
 export class DashboardHomeComponent implements OnInit {
-  
-  // Services inject ki hain
   private apiService = inject(DashboardService);
   private platformId = inject(PLATFORM_ID);
   private cdr = inject(ChangeDetectorRef); 
-
-  // Variables
   stats: DashboardStats = { totalStudents: 0, totalTeachers: 0, totalCourses: 0, totalDepartments: 0 };
   activities: RecentActivity[] = [];
   events: UpcomingEvent[] = [];
@@ -45,7 +37,6 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   loadDashboardData() {
-    // Stats Load
     this.apiService.getStats().subscribe({
       next: (data) => {
         this.stats = data;
@@ -53,8 +44,6 @@ export class DashboardHomeComponent implements OnInit {
       },
       error: (err) => console.error("❌ Stats load fail:", err)
     });
-
-    // Activities Load
     this.apiService.getRecentActivities().subscribe({
       next: (data) => {
         this.activities = data;
@@ -62,8 +51,6 @@ export class DashboardHomeComponent implements OnInit {
       },
       error: (err) => console.error("❌ Activity load fail:", err)
     });
-
-    // Events Load
     this.apiService.getUpcomingEvents().subscribe({
       next: (data) => {
         this.events = data;
@@ -71,8 +58,6 @@ export class DashboardHomeComponent implements OnInit {
       },
       error: (err) => console.error("❌ Events load fail:", err)
     });
-
-    // Charts Data Load
     forkJoin({
       fees: this.apiService.getMonthlyFees(),
       attendance: this.apiService.getMonthlyAttendance()

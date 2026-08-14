@@ -1,6 +1,4 @@
-/* =========================================
-   Wrapper & Card (Table Background)
-========================================= */
+
 .teacher-wrapper {
   background-color: #f4f6f9;
   min-height: calc(100vh - 70px);
@@ -15,9 +13,7 @@
   border: none;
 }
 
-/* =========================================
-   Header & Add Button
-========================================= */
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -48,9 +44,7 @@
   background-color: #1b4bbf;
 }
 
-/* =========================================
-   Table Styling
-========================================= */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -81,9 +75,7 @@ td {
   cursor: pointer;
 }
 
-/* =========================================
-   Action Buttons (Edit/Delete)
-========================================= */
+
 .actions {
   display: flex;
   gap: 10px;
@@ -105,9 +97,7 @@ td {
 .btn-delete { color: #dc3545; border-color: #dc3545; }
 .btn-delete:hover { background-color: #dc3545; color: white; }
 
-/* =========================================
-   Modal Overlay (Dark Background Fixed)
-========================================= */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -116,12 +106,10 @@ td {
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1050;
-  /* display: flex !important yahan se HATA diya gaya hai */
+  
 }
 
-/* =========================================
-   Modal Content (Perfect Center Trick)
-========================================= */
+
 .modal-content {
   background: white;
   width: 100%;
@@ -129,14 +117,14 @@ td {
   border-radius: 8px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   
-  /* Modal ko hamesha exact center me rakhne ka CSS */
+  
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* Modal Header (Dark matching with Student) */
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -165,9 +153,7 @@ td {
   color: #ffffff; 
 }
 
-/* =========================================
-   Form Inputs & Layout
-========================================= */
+
 form { padding: 20px 25px; }
 
 .form-grid {
@@ -200,7 +186,7 @@ form { padding: 20px 25px; }
   background-color: #f5f8fa;
 }
 
-/* Form Buttons */
+
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -223,7 +209,7 @@ form { padding: 20px 25px; }
 .btn-save:hover:not(:disabled) { background-color: #1b4bbf; }
 .btn-save:disabled { background-color: #a0b7f6; cursor: not-allowed; }
 
-/* Har module ki table ke liye mobile responsive scroll */
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -232,11 +218,11 @@ form { padding: 20px 25px; }
 
 .table {
   width: 100%;
-  max-width: none; /* Table ko mobile par dabne se rokega */
-  white-space: nowrap; /* Text ko niche line mein tootne se bachayega */
+  max-width: none; 
+  white-space: nowrap; 
 }
 
-/* Mobile Card View Styling for Teachers */
+
 .teacher-mobile-card {
   transition: all 0.2s ease-in-out;
   border: 1px solid #eaeaea !important;

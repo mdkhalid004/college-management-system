@@ -48,8 +48,6 @@ export class ResultService {
       responseType: 'text' as 'json' 
     }) as Observable<string>;
   }
-
-  // Dropdowns ke liye helper methods
   getAllStudents(): Observable<any[]> {
     return this.http.get<any[]>(this.studentUrl, { headers: this.getHeaders() });
   }

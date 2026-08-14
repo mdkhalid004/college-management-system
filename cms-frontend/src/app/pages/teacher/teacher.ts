@@ -20,14 +20,8 @@ export class TeacherComponent implements OnInit {
 
   isLoading: boolean = false;
   errorMessage: string = '';
-
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
-
-  // 🔴 Track karega ki naya teacher add ho raha hai ya purana edit
   selectedTeacherId: number | null = null;
-
-  // 🔴 Updated Form: Saare fields (qualification, salary, address included)
   teacherForm = new FormGroup({
     name: new FormControl('', Validators.required),
     phone: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
@@ -75,9 +69,9 @@ export class TeacherComponent implements OnInit {
   }
 
   openModal() {
-    this.selectedTeacherId = null; // Null matlab naya teacher
+    this.selectedTeacherId = null; 
     this.teacherForm.reset();
-    this.teacherForm.patchValue({ departmentId: '' }); // Dropdown reset karne ke liye
+    this.teacherForm.patchValue({ departmentId: '' }); 
     
     const modal = document.getElementById('addTeacherModal');
     if (modal) {
@@ -95,8 +89,6 @@ export class TeacherComponent implements OnInit {
       setTimeout(() => modal.style.display = 'none', 300);
     }
   }
-
-  // 🔴 SAVE FUNCTION
   saveTeacher() {
     if (this.teacherForm.valid) {
       const rawData = this.teacherForm.value;
@@ -113,7 +105,6 @@ export class TeacherComponent implements OnInit {
       };
 
       if (this.selectedTeacherId) {
-        // --- UPDATE API CALL ---
         this.teacherService.updateTeacher(this.selectedTeacherId, teacherDataToSave as any).subscribe({
           next: () => {
             Swal.fire({
@@ -138,7 +129,6 @@ export class TeacherComponent implements OnInit {
           }
         });
       } else {
-        // --- ADD/CREATE API CALL ---
         this.teacherService.addTeacher(teacherDataToSave).subscribe({
           next: () => {
             Swal.fire({
@@ -171,8 +161,6 @@ export class TeacherComponent implements OnInit {
       });
     }
   }
-  
-  // 🔴 DELETE FUNCTION
   deleteTeacher(teacherId: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -212,8 +200,6 @@ export class TeacherComponent implements OnInit {
       }
     });
   }
-
-  // 🔴 EDIT MODAL FUNCTION
   openUpdateModal(teacher: any) {
     this.selectedTeacherId = teacher.teacherId; 
     

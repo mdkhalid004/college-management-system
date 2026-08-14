@@ -214,7 +214,7 @@ form { padding: 20px 25px; }
 .btn-save:hover:not(:disabled) { background-color: #1b4bbf; }
 .btn-save:disabled { background-color: #a0b7f6; cursor: not-allowed; }
 
-/* Har module ki table ke liye mobile responsive scroll */
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -223,12 +223,12 @@ form { padding: 20px 25px; }
 
 .table {
   width: 100%;
-  max-width: none; /* Table ko mobile par dabne se rokega */
-  white-space: nowrap; /* Text ko niche line mein tootne se bachayega */
+  max-width: none; 
+  white-space: nowrap; 
 }
 
 
-/* Mobile Card View Styling for Library */
+
 .library-mobile-card {
   transition: all 0.2s ease-in-out;
   border: 1px solid #eaeaea !important;
@@ -242,7 +242,7 @@ form { padding: 20px 25px; }
   color: #495057;
 }
 
-/* Form controls unified styling */
+
 .form-control, .form-select {
   padding: 8px 12px;
   border-radius: 6px;

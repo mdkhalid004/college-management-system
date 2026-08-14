@@ -21,11 +21,7 @@ export class StudentComponent implements OnInit {
 
   isLoading: boolean = false;
   errorMessage: string = '';
-  
-  // 🌟 Role-Based Access Control variable
   isAdmin: boolean = false;
-
-  // 🔴 Ye variable track karega ki hum naya student add kar rahe hain ya purana edit
   selectedStudentId: number | null = null;
 
   studentForm = new FormGroup({
@@ -91,7 +87,7 @@ export class StudentComponent implements OnInit {
   }
 
   openModal() {
-    this.selectedStudentId = null; // 🔴 Null karne par naya student banega
+    this.selectedStudentId = null; 
     this.studentForm.reset();
     this.studentForm.patchValue({ gender: '', departmentId: '', courseId: '', semester: '', feeStatus: '' });
     
@@ -111,8 +107,6 @@ export class StudentComponent implements OnInit {
       setTimeout(() => modal.style.display = 'none', 300);
     }
   }
-
-  // 🔴 SAVE FUNCTION: Agar ID hai toh Update API chalegi, nahi toh Add API chalegi
   saveStudent() {
     if (this.studentForm.valid) {
       const rawData = this.studentForm.value;
@@ -137,7 +131,6 @@ export class StudentComponent implements OnInit {
       };
 
       if (this.selectedStudentId) {
-        // --- UPDATE API CALL ---
         this.studentService.updateStudent(this.selectedStudentId, studentDataToSave as any).subscribe({
           next: () => {
             Swal.fire({
@@ -162,7 +155,6 @@ export class StudentComponent implements OnInit {
           }
         });
       } else {
-        // --- ADD/CREATE API CALL ---
         this.studentService.addStudent(studentDataToSave).subscribe({
           next: () => {
             Swal.fire({
@@ -218,7 +210,6 @@ export class StudentComponent implements OnInit {
             this.loadAllStudents(); 
           },
           error: (err) => {
-            // 🔴 Agar backend se 200 ya 204 status aaya hai, matlab delete ho chuka hai
             if (err.status === 200 || err.status === 204 || err.statusText === 'OK') {
               Swal.fire({
                 title: 'Deleted!',
@@ -226,7 +217,7 @@ export class StudentComponent implements OnInit {
                 icon: 'success',
                 confirmButtonColor: '#2d63ed'
               });
-              this.loadAllStudents(); // Table turant refresh hogi
+              this.loadAllStudents(); 
             } else {
               Swal.fire('Error!', 'Failed to delete the student.', 'error');
               console.error(err);
@@ -236,10 +227,8 @@ export class StudentComponent implements OnInit {
       }
     });
   }
-
-  // 🔴 EDIT MODAL: Student ki ID save karke form mein data bharna
   openUpdateModal(student: any) {
-    this.selectedStudentId = student.studentId; // ID save kar li taaki update ho sake
+    this.selectedStudentId = student.studentId; 
     
     this.studentForm.patchValue({
       firstName: student.firstName,
