@@ -1,0 +1,302 @@
+<div class="dashboard-wrapper">
+  
+  <!-- 👇 MOBILE SIDEBAR BACKDROP OVERLAY 👇 -->
+  <div class="sidebar-overlay d-md-none" *ngIf="isSidebarOpen" (click)="toggleSidebar($event)"></div>
+
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar" [class.mobile-open]="isSidebarOpen" (click)="$event.stopPropagation()">
+    <div class="sidebar-brand d-flex justify-content-between align-items-center">
+      <span>🎓 CMS Admin</span>
+      <!-- Mobile Close Button inside sidebar -->
+      <button class="btn text-white d-md-none border-0 fs-5" (click)="toggleSidebar($event)">✖</button>
+    </div>
+    <div class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🟦 Dashboard</a>
+      <a routerLink="/student" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">👨‍🎓 Student</a>
+      <a routerLink="/teacher" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">👩‍🏫 Teacher</a>
+      <a routerLink="/department" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🏫 Department</a>
+      <a routerLink="/course" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📖 Course</a>
+      
+      <!-- TIMETABLE -->
+      <a routerLink="/timetable" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🕒 Timetable</a>
+      
+      <a routerLink="/fees" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">💳 Fees</a>
+      <a routerLink="/library" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📚 Library</a>
+      <a routerLink="/exam" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📝 Exam</a>
+      <a routerLink="/result" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📊 Result</a>
+      <a routerLink="/notice" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📢 Notice</a>
+      <a routerLink="/event" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🎉 Event</a>
+      <a routerLink="/attendance" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📅 Attendance</a>
+    </div>
+  </div>
+
+  <!-- RIGHT MAIN CONTENT -->
+  <div class="main-content">
+  
+    <!-- TOP NAVBAR -->
+    <div class="top-navbar d-flex justify-content-between align-items-center">
+      
+      <!-- Top Navbar ka Search Area (Left Side) with Live Dropdown & Hamburger Button -->
+      <div class="d-flex align-items-center gap-2 w-50 position-relative">
+        
+        <!-- 👇 HAMBURGER TOGGLE BUTTON FOR MOBILE VIEW 👇 -->
+        <button class="btn btn-outline-secondary d-md-none px-2 py-1 border-0" (click)="toggleSidebar($event)">
+          <i class="bi bi-list fs-4"></i>
+        </button>
+
+        <i class="bi bi-search text-muted me-2" style="cursor: pointer;" (click)="onSearch()"></i>
+        <input 
+          type="text" 
+          class="form-control border-0 bg-transparent" 
+          placeholder="Search students, courses, modules..." 
+          [ngModel]="searchText" 
+          (input)="onSearchInput($event)" 
+          (keyup.enter)="onSearch()">
+
+        <!-- Live Search Results Dropdown -->
+        <div class="dropdown-menu shadow-lg border-0 mt-2 show w-100" *ngIf="searchResults.length > 0 || isSearching" style="position: absolute; top: 100%; left: 0; z-index: 1000; max-height: 350px; overflow-y: auto;">
+          <div *ngIf="isSearching" class="px-3 py-2 text-muted text-center small">Searching...</div>
+          
+          <ul class="list-unstyled mb-0" *ngIf="!isSearching && searchResults.length > 0">
+            <li *ngFor="let item of searchResults" (click)="onSelectResult(item)" class="dropdown-item px-3 py-2 border-bottom" style="cursor: pointer;">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="fw-bold text-dark d-block" style="font-size: 0.9rem;">{{ item.title }}</span>
+                  <small class="text-muted" style="font-size: 0.75rem;">{{ item.subtitle }}</small>
+                </div>
+                <span class="badge bg-primary text-uppercase" style="font-size: 0.65rem;">{{ item.category }}</span>
+              </div>
+            </li>
+          </ul>
+
+          <div *ngIf="!isSearching && searchResults.length === 0" class="px-3 py-2 text-muted text-center small">
+            No results found
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Wrapper (Right Side) -->
+      <div class="d-flex align-items-center gap-4">
+        
+        <!-- Profile Dropdown Area -->
+        <div class="admin-profile-container d-flex align-items-center gap-2" (click)="toggleProfileMenu($event)" style="cursor: pointer; position: relative;">
+          <!-- Navbar Small Avatar Support -->
+          <div class="profile-avatar-wrapper">
+            <img *ngIf="adminProfile.avatar && adminProfile.avatar.length > 10; else textAvatarSm" 
+                 [src]="adminProfile.avatar" 
+                 alt="Avatar" 
+                 class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover;">
+            <ng-template #textAvatarSm>
+              <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 35px; height: 35px;">{{ adminProfile.avatar || 'A' }}</div>
+            </ng-template>
+          </div>
+
+          <span class="fw-bold d-none d-sm-inline">Admin</span>
+          
+          <!-- Profile Dropdown Menu -->
+          <div class="dropdown-menu show shadow-sm border-0 mt-3" *ngIf="isProfileMenuOpen" (click)="$event.stopPropagation()" style="position: absolute; right: 0; top: 100%; z-index: 1000;">
+            <ul class="list-unstyled mb-0 p-2">
+              <li (click)="goToProfile()" class="dropdown-item rounded" style="cursor: pointer;"><i class="bi bi-person fs-5 me-2"></i> My Profile</li>
+              <li (click)="openSettings()" class="dropdown-item rounded" style="cursor: pointer;"><i class="bi bi-gear fs-5 me-2"></i> Settings</li>
+              <hr class="my-1">
+              <li class="logout-dir dropdown-item rounded text-danger" (click)="logout()" style="cursor: pointer;"><i class="bi bi-box-arrow-right fs-5 me-2"></i> Logout</li>
+            </ul>
+          </div>
+        </div>
+
+      </div> <!-- Right side container end -->
+    </div> <!-- Top Navbar End -->
+
+    <!-- ========================================================= -->
+    <!-- 👇 YAHAN ROUTER-OUTLET HAI (Dynamic pages ke liye) 👇 -->
+    <!-- ========================================================= -->
+    <div class="dynamic-content-area p-3">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- 👇 MY PROFILE MODAL (POPUP) OVERLAY 👇 -->
+<!-- ========================================================= -->
+<div class="modal-backdrop-custom" *ngIf="isProfileModalOpen" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center;">
+  <div class="card shadow-lg border-0 p-4" style="width: 450px; border-radius: 12px; background: white;">
+    
+    <!-- Modal Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+      <h5 class="fw-bold m-0">👤 Admin Profile</h5>
+      <button type="button" class="btn-close" (click)="closeProfileModal()" style="cursor: pointer; background: transparent; border: 0; font-size: 1.2rem;">✖</button>
+    </div>
+
+    <!-- Modal Tabs / Navigation -->
+    <div class="d-flex gap-2 mb-3">
+      <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'view'" [class.btn-outline-primary]="profileActiveTab !== 'view'" (click)="profileActiveTab = 'view'">View Details</button>
+      <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'edit'" [class.btn-outline-primary]="profileActiveTab !== 'edit'" (click)="profileActiveTab = 'edit'">Edit Profile</button>
+      <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'password'" [class.btn-outline-primary]="profileActiveTab !== 'password'" (click)="profileActiveTab = 'password'">Change Password</button>
+    </div>
+
+    <!-- TAB 1: VIEW DETAILS -->
+    <div *ngIf="profileActiveTab === 'view'" class="text-center py-3">
+      <div class="profile-avatar-wrapper mb-3">
+        <img *ngIf="adminProfile.avatar && adminProfile.avatar.length > 10; else textAvatar" 
+             [src]="adminProfile.avatar" 
+             alt="Profile Avatar" 
+             class="rounded-circle shadow" style="width: 70px; height: 70px; object-fit: cover;">
+        
+        <ng-template #textAvatar>
+          <div class="bg-primary text-white rounded-circle d-inline-flex justify-content-center align-items-center shadow" style="width: 70px; height: 70px; font-size: 1.8rem; font-weight: bold;">
+            {{ adminProfile.avatar || 'A' }}
+          </div>
+        </ng-template>
+      </div>
+
+      <h4 class="fw-bold text-dark mb-1">{{ adminProfile.name }}</h4>
+      <p class="badge bg-success text-white mb-3">{{ adminProfile.role }}</p>
+
+      <div class="text-start bg-light p-3 rounded border">
+        <p class="mb-2"><strong>📧 Email:</strong> {{ adminProfile.email }}</p>
+        <p class="mb-0"><strong>📞 Phone:</strong> {{ adminProfile.phone }}</p>
+      </div>
+    </div>
+
+    <!-- TAB 2: EDIT PROFILE -->
+    <div *ngIf="profileActiveTab === 'edit'">
+      <div class="text-center mb-3">
+        <div class="profile-avatar-wrapper">
+          <img *ngIf="adminProfile.avatar && adminProfile.avatar.length > 10; else textAvatarEdit" 
+               [src]="adminProfile.avatar" 
+               alt="Current Avatar" 
+               class="rounded-circle shadow-sm" style="width: 55px; height: 55px; object-fit: cover;">
+          
+          <ng-template #textAvatarEdit>
+            <div class="bg-primary text-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm" style="width: 55px; height: 55px; font-size: 1.3rem; font-weight: bold;">
+              {{ adminProfile.avatar || 'A' }}
+            </div>
+          </ng-template>
+        </div>
+        <small class="text-muted d-block mt-1">Current Avatar</small>
+      </div>
+
+      <div class="mb-3">
+        <label for="avatar" class="form-label small fw-bold">Profile Picture / Avatar</label>
+        <input 
+          type="file" 
+          id="avatar" 
+          (change)="onFileSelected($event)" 
+          class="form-control" 
+          accept="image/*">
+        
+        <div class="mt-2 text-muted" style="font-size: 0.85rem;">
+          📁 Active File: <span class="fw-bold text-dark">{{ avatarFileName }}</span>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Full Name</label>
+        <input type="text" class="form-control" [(ngModel)]="adminProfile.name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Email Address</label>
+        <input type="email" class="form-control" [(ngModel)]="adminProfile.email">
+      </div>
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Phone Number</label>
+        <input type="text" class="form-control" [(ngModel)]="adminProfile.phone">
+      </div>
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-secondary btn-sm" (click)="profileActiveTab = 'view'">Cancel</button>
+        <button class="btn btn-primary btn-sm" (click)="saveProfileChanges()">Save Changes</button>
+      </div>
+    </div>
+
+    <!-- TAB 3: CHANGE PASSWORD -->
+    <div *ngIf="profileActiveTab === 'password'">
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Current Password</label>
+        <div class="input-group">
+          <input [type]="showCurrentPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="passwordData.currentPassword">
+          <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility('current')">
+            <i class="bi" [class.bi-eye]="!showCurrentPassword" [class.bi-eye-slash]="showCurrentPassword"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label small fw-bold">New Password</label>
+        <div class="input-group">
+          <input [type]="showNewPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="passwordData.newPassword">
+          <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility('new')">
+            <i class="bi" [class.bi-eye]="!showNewPassword" [class.bi-eye-slash]="showNewPassword"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Confirm New Password</label>
+        <div class="input-group">
+          <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="passwordData.confirmPassword">
+          <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility('confirm')">
+            <i class="bi" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-secondary btn-sm" (click)="cancelPassword()">Cancel</button>
+        <button class="btn btn-danger btn-sm" (click)="updatePassword()">Update Password</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- 👇 SETTINGS MODAL (POPUP) OVERLAY 👇 -->
+<!-- ========================================================= -->
+<div class="modal-backdrop-custom" *ngIf="isSettingsModalOpen" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center;">
+  <div class="card shadow-lg border-0 p-4" style="width: 420px; border-radius: 12px; background: white;">
+    
+    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+      <h5 class="fw-bold m-0">⚙️ System Settings</h5>
+      <button type="button" class="btn-close" (click)="closeSettings()" style="cursor: pointer; background: transparent; border: 0; font-size: 1.2rem;">✖</button>
+    </div>
+
+    <div class="mb-3">
+      <div class="form-check form-switch mb-3 p-3 bg-light rounded border d-flex justify-content-between align-items-center">
+        <label class="form-check-label fw-bold text-dark m-0" for="darkModeSwitch">
+          🌙 Dark Mode Theme
+        </label>
+        <input 
+          class="form-check-input" 
+          type="checkbox" 
+          role="switch" 
+          id="darkModeSwitch" 
+          [(ngModel)]="settingsData.isDarkMode" 
+          (change)="onDarkModeToggle()"
+          style="cursor: pointer; width: 2.5em; height: 1.25em;">
+      </div>
+
+      <div class="mb-3">
+        <label for="academicYearSelect" class="form-label small fw-bold">🎓 Active Academic Year / Session</label>
+        <select 
+          id="academicYearSelect" 
+          class="form-control" 
+          [(ngModel)]="settingsData.academicYear">
+          <option value="2026-2027">2026-2027 (Current)</option>
+          <option value="2027-2028">2027-2028</option>
+          <option value="2028-2029">2028-2029</option>
+          <option value="2029-2030">2029-2030</option>
+          <option value="2030-2031">2030-2031</option>
+        </select>
+        <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">Only active and future sessions are available.</small>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button class="btn btn-secondary btn-sm" (click)="closeSettings()">Cancel</button>
+      <button class="btn btn-primary btn-sm" (click)="saveSettings()">Save Settings</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,281 @@
+/* =========================================
+   Wrapper & Card (Main Layout)
+========================================= */
+.course-wrapper {
+  background-color: #f4f6f9;
+  min-height: calc(100vh - 70px);
+  padding: 24px; 
+}
+
+.content-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border: none;
+}
+
+/* =========================================
+   Header & Add Button
+========================================= */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-container h2 {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.btn-add {
+  background-color: #2d63ed;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add:hover {
+  background-color: #1b4bbf;
+}
+
+/* =========================================
+   Exam Table Styling
+========================================= */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table-custom-header th {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e9ecef;
+  padding: 12px 15px; 
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  color: #495057;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8faff;
+  cursor: pointer;
+}
+
+/* Badge for Exam Time */
+.badge {
+  background-color: #e4e6ef;
+  color: #3f4254;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   Action Buttons (Edit/Delete)
+========================================= */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.btn-edit { color: #0d6efd; border-color: #0d6efd; }
+.btn-edit:hover { background-color: #0d6efd; color: white; }
+.btn-delete { color: #dc3545; border-color: #dc3545; }
+.btn-delete:hover { background-color: #dc3545; color: white; }
+
+/* =========================================
+   Modal Overlay & Content
+========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 650px; 
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #1e1e2d; 
+  border-bottom: 1px solid #323248;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-header h3 { 
+  margin: 0; 
+  color: #ffffff; 
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.close-btn { 
+  background: none; 
+  border: none; 
+  font-size: 18px; 
+  cursor: pointer; 
+  color: #a1a5b7; 
+}
+
+.close-btn:hover { 
+  color: #ffffff; 
+}
+
+/* =========================================
+   Form Elements (Specific for Exam Dates/Time)
+========================================= */
+form { padding: 20px 25px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 20px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-group label { 
+  font-size: 13px; 
+  font-weight: 600; 
+  color: #3f4254; 
+}
+
+/* Added type selectors for better browser rendering of date/time pickers */
+.form-group input[type="text"], 
+.form-group input[type="date"], 
+.form-group input[type="time"], 
+.form-group select {
+  padding: 10px 12px;
+  border: 1px solid #e4e6ef;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #3f4254;
+  outline: none;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus, .form-group select:focus {
+  border-color: #2d63ed;
+  background-color: #f5f8fa;
+}
+
+/* =========================================
+   Modal Footer & Buttons
+========================================= */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 15px 25px 20px;
+}
+
+.btn-cancel, .btn-save { 
+  padding: 10px 20px; 
+  border-radius: 6px; 
+  border: none; 
+  font-weight: 600; 
+  cursor: pointer; 
+  font-size: 13px;
+}
+
+.btn-cancel { background-color: #f5f8fa; color: #7e8299; }
+.btn-cancel:hover { background-color: #e4e6ef; color: #3f4254;}
+.btn-save { background-color: #2d63ed; color: white; }
+.btn-save:hover:not(:disabled) { background-color: #1b4bbf; }
+.btn-save:disabled { background-color: #a0b7f6; cursor: not-allowed; }
+
+/* Har module ki table ke liye mobile responsive scroll */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  max-width: none; /* Table ko mobile par dabne se rokega */
+  white-space: nowrap; /* Text ko niche line mein tootne se bachayega */
+}
+
+/* Mobile Card View Styling for Exam Management */
+.exam-mobile-card {
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #eaeaea !important;
+}
+
+.exam-mobile-card:active {
+  background-color: #f8f9fa;
+}
+
+.exam-card-details strong {
+  color: #495057;
+}
+
+/* Form controls unified styling */
+.form-control, .form-select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #2d63ed;
+  box-shadow: 0 0 0 0.2rem rgba(45, 99, 237, 0.25);
+}
