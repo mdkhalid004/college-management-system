@@ -1,19 +1,25 @@
 # 🎓 College Management System (Backend APIs)
 
 ## 📝 About The Project
-This repository contains the **Backend APIs** for a College Management System. The project is currently under active development. The primary focus right now is building a robust, secure, and scalable backend architecture to handle college data.
+This repository contains the **Backend APIs** for a College Management System built with **Spring Boot**. The primary focus of this phase was building a robust, relational, and scalable backend architecture to handle core college data seamlessly. 
 
-All endpoints are secured using **JWT (JSON Web Token) Authentication** to ensure that only authorized users can access the system.
+The system currently handles complex relational mappings and ensures clean API responses with centralized exception handling.
 
 ## 🚀 Current Features (Backend)
-*   **Security:** Fully implemented JWT-based authentication and authorization.
-*   **API Endpoints:** RESTful APIs for managing core college operations (Work in progress).
+*   **Comprehensive Data Modeling:** Mapped 10+ core entities including Student, Teacher, Department, Course, Attendance, Result, Notice, and Fees.
+*   **Relational Mapping:** Implemented complex JPA relationships (`@OneToMany`, `@ManyToOne`) with proper lazy fetching.
+*   **Data Integrity:** Applied unique constraints (e.g., Email, ISBN, Receipt Number) and column configurations to maintain database health.
+*   **Global Exception Handling:** Configured `@ControllerAdvice` and custom `ResourceNotFoundException` to ensure clean, standardized `404 Not Found` JSON responses instead of server crashes.
+*   **RESTful APIs:** Complete CRUD (Create, Read, Update, Delete) endpoints successfully tested via Postman.
 
 ## 🛠️ Tech Stack
-*   **Backend:** Framework, e.g., Java, Spring Boot
-*   **Security:** JWT Token Authentication
-*   **Database:** Database, e.g., MySQL
+*   **Language:** Java
+*   **Framework:** Spring Boot, Spring Web
+*   **Data Access:** Spring Data JPA, Hibernate
+*   **Database:** MySQL
+*   **Tools:** Postman (for API Testing)
 
 ## 🚧 Upcoming Features
-*   **Frontend Development:** A complete, interactive user interface built with **Angular**.
-*   Integration of frontend and backend.
+*   **Frontend Integration:** Building a complete, interactive user interface using **Angular**.
+*   **Security:** Implementing **Spring Security** with **JWT (JSON Web Token)** for user authentication and role-based authorization.
+*   **API Documentation:** Integrating **Swagger (OpenAPI)** for interactive API docs.
