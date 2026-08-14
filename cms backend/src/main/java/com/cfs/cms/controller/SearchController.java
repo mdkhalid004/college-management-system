@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*") // Frontend (Angular) se connect karne ke liye zaroori hai
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class SearchController {
 
@@ -18,7 +18,7 @@ public class SearchController {
 
     @GetMapping("/search")
     public ResponseEntity<List<SearchResultDto>> searchAll(@RequestParam("query") String query) {
-        // 👇 Yahan 'globalSearch' call karna hai aur 'results' variable ko define karna hai
+
         List<SearchResultDto> results = searchService.globalSearch(query);
 
         return ResponseEntity.ok(results);

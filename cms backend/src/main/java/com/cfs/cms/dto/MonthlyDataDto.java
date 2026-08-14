@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MonthlyDataDto {
     private String month;
-    private Double totalValue; // Fees sum ya Attendance percentage ke liye
+    private Double totalValue;
 }

@@ -28,14 +28,14 @@ public class TeacherController {
 
     // READ (GET BY ID)
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')") // Student ko teacher ki details nahi dikhni chahiye
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<TeacherDto> getTeacherById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(teacherService.getTeacherById(id));
     }
 
     // READ (GET ALL)
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'STUDENT')") // Sabhi dekh sakte hain ki kon kon se teachers hain
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'STUDENT')") //
     public ResponseEntity<List<TeacherDto>> getAllTeachers() {
         return ResponseEntity.ok(teacherService.getAllTeachers());
     }

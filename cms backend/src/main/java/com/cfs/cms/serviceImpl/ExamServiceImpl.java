@@ -78,7 +78,7 @@ public class ExamServiceImpl implements ExamService {
 
         if (exam.getCourse() != null) {
             dto.setCourseId(exam.getCourse().getCourseId());
-            dto.setCourseName(exam.getCourse().getName()); // 👈 Mapping course name here
+            dto.setCourseName(exam.getCourse().getName());
         }
 
         dto.setExamDate(exam.getExamDate());

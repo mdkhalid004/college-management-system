@@ -19,7 +19,7 @@ public class AdminController {
 
     @GetMapping("/profile")
     public ResponseEntity<AdminProfileDto> getProfile(Authentication authentication) {
-        String email = authentication.getName(); // JWT se email milega
+        String email = authentication.getName();
         AdminProfileDto profile = adminService.getAdminProfile(email);
         return ResponseEntity.ok(profile);
     }

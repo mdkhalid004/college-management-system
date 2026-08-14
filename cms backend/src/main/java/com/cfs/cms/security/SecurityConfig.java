@@ -56,7 +56,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // 👇 Yahan par humne CORS ko explicitly hamare naye method (Step 1) ke sath link kar diya hai 👇
+
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
@@ -81,21 +81,20 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Angular ka URL allow karein
+
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
 
-        // OPTIONS aur baaki methods allow karein
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
-        // Authorization header (JWT ke liye) allow karein
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
 
-        // Agar future mein credentials (cookies wagaira) bhejne ho, toh ise true rakhein
+
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-        // Ye settings saare API endpoints (/**) par lagoo hongi
+
         source.registerCorsConfiguration("/**", configuration);
 
         return source;

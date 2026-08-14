@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/students")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200") // Angular ke liye CORS enable kar diya
+@CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
 
     private final StudentService studentService;

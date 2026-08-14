@@ -40,10 +40,10 @@ public class SearchService {
     private FeesRepository feesRepository;
 
     @Autowired
-    private ResultRepository resultRepository;         // 👈 Added
+    private ResultRepository resultRepository;
 
     @Autowired
-    private TimetableRepository timetableRepository;   // 👈 Added
+    private TimetableRepository timetableRepository;
 
     public List<SearchResultDto> globalSearch(String query) {
         List<SearchResultDto> results = new ArrayList<>();
@@ -52,7 +52,6 @@ public class SearchService {
             return results;
         }
 
-        // 1. Search Students
         List<Student> students = studentRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrEnrollmentNumberContainingIgnoreCase(query, query, query);
         for (Student s : students) {
             results.add(new SearchResultDto(
@@ -63,7 +62,7 @@ public class SearchService {
             ));
         }
 
-        // 2. Search Teachers
+
         List<Teacher> teachers = teacherRepository.findByNameContainingIgnoreCaseOrSubjectContainingIgnoreCase(query, query);
         for (Teacher t : teachers) {
             results.add(new SearchResultDto(
@@ -74,7 +73,7 @@ public class SearchService {
             ));
         }
 
-        // 3. Search Courses
+
         List<Course> courses = courseRepository.findByNameContainingIgnoreCase(query);
         for (Course c : courses) {
             results.add(new SearchResultDto(
@@ -85,7 +84,6 @@ public class SearchService {
             ));
         }
 
-        // 4. Search Departments
         List<Department> departments = departmentRepository.findByNameContainingIgnoreCaseOrHodContainingIgnoreCase(query, query);
         for (Department d : departments) {
             results.add(new SearchResultDto(
@@ -96,7 +94,7 @@ public class SearchService {
             ));
         }
 
-        // 5. Search Library Books
+
         List<Library> books = libraryRepository.findByNameContainingIgnoreCaseOrAuthorContainingIgnoreCaseOrIsbnContainingIgnoreCase(query, query, query);
         for (Library b : books) {
             results.add(new SearchResultDto(
@@ -107,7 +105,7 @@ public class SearchService {
             ));
         }
 
-        // 6. Search Notices
+
         List<Notice> notices = noticeRepository.findByTitleContainingIgnoreCase(query);
         for (Notice n : notices) {
             results.add(new SearchResultDto(
@@ -118,7 +116,7 @@ public class SearchService {
             ));
         }
 
-        // 7. Search Exams
+
         List<Exam> exams = examRepository.findByNameContainingIgnoreCase(query);
         for (Exam e : exams) {
             results.add(new SearchResultDto(
@@ -129,7 +127,7 @@ public class SearchService {
             ));
         }
 
-        // 8. Search Events
+
         List<Event> events = eventRepository.findByEventNameContainingIgnoreCase(query);
         for (Event ev : events) {
             results.add(new SearchResultDto(
@@ -140,7 +138,7 @@ public class SearchService {
             ));
         }
 
-        // 9. Search Fees Receipts
+
         List<Fees> feesList = feesRepository.findByReceiptNoContainingIgnoreCase(query);
         for (Fees f : feesList) {
             results.add(new SearchResultDto(
@@ -151,7 +149,7 @@ public class SearchService {
             ));
         }
 
-        // 10. Search Results (by Grade or Status) 👈 Added
+
         List<Result> resultList = resultRepository.findByGradeContainingIgnoreCaseOrStatusContainingIgnoreCase(query, query);
         for (Result r : resultList) {
             results.add(new SearchResultDto(
@@ -162,7 +160,7 @@ public class SearchService {
             ));
         }
 
-        // 11. Search Timetable (by Day of Week or Room Number) 👈 Added
+
         List<Timetable> timetables = timetableRepository.findByDayOfWeekContainingIgnoreCaseOrRoomNumberContainingIgnoreCase(query, query);
         for (Timetable tt : timetables) {
             results.add(new SearchResultDto(
