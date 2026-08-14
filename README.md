@@ -1,25 +1,90 @@
-# 🎓 College Management System (Backend APIs)
+# 🎓 College Management System
 
-## 📝 About The Project
-This repository contains the **Backend APIs** for a College Management System built with **Spring Boot**. The primary focus of this phase was building a robust, relational, and scalable backend architecture to handle core college data seamlessly. 
+A full-stack College Management System built using **Spring Boot, Angular, MySQL, Spring Security, and JWT**.
 
-The system currently handles complex relational mappings and ensures clean API responses with centralized exception handling.
+The project provides a role-based system for managing students, teachers, courses, departments, attendance, exams, results, fees, library, notices, events, and timetable.
 
-## 🚀 Current Features (Backend)
-*   **Comprehensive Data Modeling:** Mapped 10+ core entities including Student, Teacher, Department, Course, Attendance, Result, Notice, and Fees.
-*   **Relational Mapping:** Implemented complex JPA relationships (`@OneToMany`, `@ManyToOne`) with proper lazy fetching.
-*   **Data Integrity:** Applied unique constraints (e.g., Email, ISBN, Receipt Number) and column configurations to maintain database health.
-*   **Global Exception Handling:** Configured `@ControllerAdvice` and custom `ResourceNotFoundException` to ensure clean, standardized `404 Not Found` JSON responses instead of server crashes.
-*   **RESTful APIs:** Complete CRUD (Create, Read, Update, Delete) endpoints successfully tested via Postman.
+## 🚀 Features
+
+### 🔐 Authentication & Security
+- User Registration and Login
+- JWT-based Authentication
+- Spring Security
+- Role-based Authorization
+- Admin, Teacher and Student roles
+- Protected APIs based on user roles
+
+### 👨‍🎓 Student Management
+- Add Student
+- View Student
+- Update Student
+- Delete Student
+- View Student Details
+
+### 👨‍🏫 Teacher Management
+- Add Teacher
+- View Teacher
+- Update Teacher
+- Delete Teacher
+
+### 🏫 Academic Management
+- Department Management
+- Course Management
+- Attendance Management
+- Exam Management
+- Result Management
+- Timetable Management
+
+### 💰 Other Management
+- Fees Management
+- Library Management
+- Notice Management
+- Event Management
+- Dashboard
+- User Profile
 
 ## 🛠️ Tech Stack
-*   **Language:** Java
-*   **Framework:** Spring Boot, Spring Web
-*   **Data Access:** Spring Data JPA, Hibernate
-*   **Database:** MySQL
-*   **Tools:** Postman (for API Testing)
 
-## 🚧 Upcoming Features
-*   **Frontend Integration:** Building a complete, interactive user interface using **Angular**.
-*   **Security:** Implementing **Spring Security** with **JWT (JSON Web Token)** for user authentication and role-based authorization.
-*   **API Documentation:** Integrating **Swagger (OpenAPI)** for interactive API docs.
+### Backend
+- Java
+- Spring Boot
+- Spring Web
+- Spring Data JPA
+- Hibernate
+- Spring Security
+- JWT
+- REST APIs
+
+### Frontend
+- Angular
+- TypeScript
+- HTML
+- CSS
+- Bootstrap
+
+### Database
+- MySQL
+
+### Tools
+- IntelliJ IDEA
+- Visual Studio Code
+- Postman
+- Git & GitHub
+
+## 📁 Project Structure
+
+```text
+college-management-system/
+│
+├── cms backend/
+│   ├── src/
+│   ├── pom.xml
+│   └── ...
+│
+├── cms-frontend/
+│   ├── src/
+│   ├── angular.json
+│   ├── package.json
+│   └── ...
+│
+└── README.md
