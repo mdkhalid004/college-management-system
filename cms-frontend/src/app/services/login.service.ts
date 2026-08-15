@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = 'https://college-management-system-2qa4.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {}
 

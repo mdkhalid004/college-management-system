@@ -53,10 +53,10 @@ export interface Settings {
 })
 export class DashboardService {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080/api/v1/dashboard';
-  private searchUrl = 'http://localhost:8080/api/search';
-  private adminUrl = 'http://localhost:8080/api/v1/admin';
-  private settingsUrl = 'http://localhost:8080/api/settings'; 
+  private baseUrl = 'https://college-management-system-2qa4.onrender.com/api/v1/dashboard';
+  private searchUrl = 'https://college-management-system-2qa4.onrender.com/api/search';
+  private adminUrl = 'https://college-management-system-2qa4.onrender.com/api/v1/admin';
+  private settingsUrl = 'https://college-management-system-2qa4.onrender.com/api/settings'; 
 
   getStats(): Observable<DashboardStats> { 
     return this.http.get<DashboardStats>(`${this.baseUrl}/stats`); 

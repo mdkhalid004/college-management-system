@@ -15,7 +15,7 @@ export interface RegisterRequest {
   providedIn: 'root'
 })
 export class RegisterService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = 'https://college-management-system-2qa4.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {}
 

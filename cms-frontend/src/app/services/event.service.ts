@@ -16,7 +16,7 @@ export interface Event {
 })
 export class EventService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/v1/events';
+  private apiUrl = 'https://college-management-system-2qa4.onrender.com/api/v1/events';
 
   private tempToken = 'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJyYWh1bC5zaGFybWFAZXhhbXBsZS5jb20iLCJpYXQiOjE3ODUzMzIxMDEsImV4cCI6MTc4NzkyNDEwMX0.E6RAFfQe83wmdazz4AMUrqwXZPKv76sxCxLpfg8uS4wYrsrcdx4tw19pHdpVIQkp';
 
