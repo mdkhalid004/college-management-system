@@ -1,8 +1,19 @@
-FROM eclipse-temurin:24-jdk
+# Step 1: Build Spring Boot application
+FROM eclipse-temurin:24-jdk AS build
 
 WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY . .
+
+RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
+
+# Step 2: Run Spring Boot application
+FROM eclipse-temurin:24-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
