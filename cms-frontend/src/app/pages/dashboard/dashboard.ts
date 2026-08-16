@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private router = inject(Router); 
   private dashboardService = inject(DashboardService);
   private cdr = inject(ChangeDetectorRef);
+
   isProfileMenuOpen: boolean = false;
   isNotificationMenuOpen: boolean = false;
   searchText: string = '';
@@ -42,6 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     newPassword: '',
     confirmPassword: ''
   };
+
   settingsData: Settings = {
     isDarkMode: false,
     academicYear: '2026-2027'
@@ -64,7 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ).subscribe(() => {
       this.isProfileMenuOpen = false;
       this.isNotificationMenuOpen = false;
-      this.isSidebarOpen = false;
+      this.closeSidebar();
     });
 
     const cachedAvatar = localStorage.getItem('adminAvatar');
@@ -115,22 +117,44 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+    this.updateBodyScroll(false);
   }
+
   @HostListener('document:click')
   onDocumentClick() {
     this.isProfileMenuOpen = false;
     this.isNotificationMenuOpen = false;
-    this.isSidebarOpen = false;
+    if (this.isSidebarOpen) {
+      this.closeSidebar();
+    }
   }
+
   toggleSidebar(event?: Event) {
     event?.stopPropagation();
     this.isSidebarOpen = !this.isSidebarOpen;
+    this.updateBodyScroll(this.isSidebarOpen);
   }
+
+  closeSidebar() {
+    this.isSidebarOpen = false;
+    this.updateBodyScroll(false);
+  }
+
   onModuleClick(event?: Event) {
     event?.stopPropagation();
     this.isProfileMenuOpen = false;
     this.isNotificationMenuOpen = false;
-    this.isSidebarOpen = false;
+    this.closeSidebar();
+  }
+
+  private updateBodyScroll(isLocked: boolean) {
+    if (isLocked) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
   }
 
   loadAdminProfile() {
@@ -219,6 +243,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   toggleProfileMenu(event?: Event) { 
     event?.stopPropagation();
     this.isProfileMenuOpen = !this.isProfileMenuOpen; 

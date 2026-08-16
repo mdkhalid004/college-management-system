@@ -1,25 +1,22 @@
 <div class="dashboard-wrapper">
   
-  
-  <div class="sidebar-overlay d-md-none" *ngIf="isSidebarOpen" (click)="toggleSidebar($event)"></div>
+  <!-- Mobile Overlay with Touch Prevention -->
+  <div class="sidebar-overlay d-md-none" *ngIf="isSidebarOpen" (click)="toggleSidebar($event)" (touchmove)="$event.preventDefault()"></div>
 
-  
-  <div class="sidebar" [class.mobile-open]="isSidebarOpen" (click)="$event.stopPropagation()">
+  <!-- Sidebar Container -->
+  <div class="sidebar" [class.mobile-open]="isSidebarOpen" (click)="$event.stopPropagation()" (touchmove)="$event.stopPropagation()">
     <div class="sidebar-brand d-flex justify-content-between align-items-center">
       <span>🎓 CMS Admin</span>
-      
       <button class="btn text-white d-md-none border-0 fs-5" (click)="toggleSidebar($event)">✖</button>
     </div>
+    
     <div class="sidebar-nav">
       <a routerLink="/dashboard" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🟦 Dashboard</a>
       <a routerLink="/student" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">👨‍🎓 Student</a>
       <a routerLink="/teacher" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">👩‍🏫 Teacher</a>
       <a routerLink="/department" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🏫 Department</a>
       <a routerLink="/course" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📖 Course</a>
-      
-      
       <a routerLink="/timetable" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">🕒 Timetable</a>
-      
       <a routerLink="/fees" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">💳 Fees</a>
       <a routerLink="/library" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📚 Library</a>
       <a routerLink="/exam" routerLinkActive="active" class="nav-item text-decoration-none" (click)="isSidebarOpen = false">📝 Exam</a>
@@ -30,16 +27,13 @@
     </div>
   </div>
 
-  
+  <!-- Main Content Area -->
   <div class="main-content">
-  
     
+    <!-- Top Navbar -->
     <div class="top-navbar d-flex justify-content-between align-items-center">
       
-      
       <div class="d-flex align-items-center gap-2 w-50 position-relative">
-        
-        
         <button class="btn btn-outline-secondary d-md-none px-2 py-1 border-0" (click)="toggleSidebar($event)">
           <i class="bi bi-list fs-4"></i>
         </button>
@@ -53,7 +47,6 @@
           (input)="onSearchInput($event)" 
           (keyup.enter)="onSearch()">
 
-        
         <div class="dropdown-menu shadow-lg border-0 mt-2 show w-100" *ngIf="searchResults.length > 0 || isSearching" style="position: absolute; top: 100%; left: 0; z-index: 1000; max-height: 350px; overflow-y: auto;">
           <div *ngIf="isSearching" class="px-3 py-2 text-muted text-center small">Searching...</div>
           
@@ -75,10 +68,7 @@
         </div>
       </div>
 
-      
       <div class="d-flex align-items-center gap-4">
-        
-        
         <div class="admin-profile-container d-flex align-items-center gap-2" (click)="toggleProfileMenu($event)" style="cursor: pointer; position: relative;">
           
           <div class="profile-avatar-wrapper">
@@ -93,7 +83,6 @@
 
           <span class="fw-bold d-none d-sm-inline">Admin</span>
           
-          
           <div class="dropdown-menu show shadow-sm border-0 mt-3" *ngIf="isProfileMenuOpen" (click)="$event.stopPropagation()" style="position: absolute; right: 0; top: 100%; z-index: 1000;">
             <ul class="list-unstyled mb-0 p-2">
               <li (click)="goToProfile()" class="dropdown-item rounded" style="cursor: pointer;"><i class="bi bi-person fs-5 me-2"></i> My Profile</li>
@@ -107,9 +96,6 @@
       </div> 
     </div> 
 
-    
-    
-    
     <div class="dynamic-content-area p-3">
       <router-outlet></router-outlet>
     </div>
@@ -117,26 +103,21 @@
   </div>
 </div>
 
-
-
-
+<!-- Profile Modal -->
 <div class="modal-backdrop-custom" *ngIf="isProfileModalOpen" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center;">
   <div class="card shadow-lg border-0 p-4" style="width: 450px; border-radius: 12px; background: white;">
-    
     
     <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
       <h5 class="fw-bold m-0">👤 Admin Profile</h5>
       <button type="button" class="btn-close" (click)="closeProfileModal()" style="cursor: pointer; background: transparent; border: 0; font-size: 1.2rem;">✖</button>
     </div>
 
-    
     <div class="d-flex gap-2 mb-3">
       <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'view'" [class.btn-outline-primary]="profileActiveTab !== 'view'" (click)="profileActiveTab = 'view'">View Details</button>
       <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'edit'" [class.btn-outline-primary]="profileActiveTab !== 'edit'" (click)="profileActiveTab = 'edit'">Edit Profile</button>
       <button class="btn btn-sm" [class.btn-primary]="profileActiveTab === 'password'" [class.btn-outline-primary]="profileActiveTab !== 'password'" (click)="profileActiveTab = 'password'">Change Password</button>
     </div>
 
-    
     <div *ngIf="profileActiveTab === 'view'" class="text-center py-3">
       <div class="profile-avatar-wrapper mb-3">
         <img *ngIf="adminProfile.avatar && adminProfile.avatar.length > 10; else textAvatar" 
@@ -160,7 +141,6 @@
       </div>
     </div>
 
-    
     <div *ngIf="profileActiveTab === 'edit'">
       <div class="text-center mb-3">
         <div class="profile-avatar-wrapper">
@@ -210,7 +190,6 @@
       </div>
     </div>
 
-    
     <div *ngIf="profileActiveTab === 'password'">
       <div class="mb-3">
         <label class="form-label small fw-bold">Current Password</label>
@@ -251,9 +230,7 @@
   </div>
 </div>
 
-
-
-
+<!-- Settings Modal -->
 <div class="modal-backdrop-custom" *ngIf="isSettingsModalOpen" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center;">
   <div class="card shadow-lg border-0 p-4" style="width: 420px; border-radius: 12px; background: white;">
     
