@@ -29,6 +29,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        // Allow CORS preflight requests
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // Extract the Authorization header from the request
         final String authHeader = request.getHeader("Authorization");
         String username = null;
@@ -36,11 +42,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Check if the header exists and starts with "Bearer "
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            jwt = authHeader.substring(7); // Extract token part
+            jwt = authHeader.substring(7);
+
             try {
                 username = jwtUtil.extractUsername(jwt);
             } catch (Exception e) {
-                // Log the exception or handle invalid token scenario
                 System.out.println("Invalid JWT Token or Token Expired: " + e.getMessage());
             }
         }
@@ -51,14 +57,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
-                // Create authentication token
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
+
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities()
+                        );
 
                 // Add request details to the authentication token
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                authToken.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
 
-                // Set the authentication in the security context
+                // Set authentication in security context
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
