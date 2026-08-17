@@ -5,71 +5,77 @@
     <form (ngSubmit)="onRegister()">
       <div class="form-group">
         <label for="firstName">First Name</label>
-        <input 
-          type="text" 
-          id="firstName" 
-          [(ngModel)]="registerData.firstName" 
-          name="firstName" 
-          class="form-control"
-          required 
-          placeholder="Enter first name">
+        <div class="input-wrapper">
+          <i class="bi bi-person input-icon"></i>
+          <input 
+            type="text" 
+            id="firstName" 
+            [(ngModel)]="registerData.firstName" 
+            name="firstName" 
+            required 
+            placeholder="Enter first name">
+        </div>
       </div>
 
       <div class="form-group">
         <label for="lastName">Last Name</label>
-        <input 
-          type="text" 
-          id="lastName" 
-          [(ngModel)]="registerData.lastName" 
-          name="lastName" 
-          class="form-control"
-          required 
-          placeholder="Enter last name">
+        <div class="input-wrapper">
+          <i class="bi bi-person input-icon"></i>
+          <input 
+            type="text" 
+            id="lastName" 
+            [(ngModel)]="registerData.lastName" 
+            name="lastName" 
+            required 
+            placeholder="Enter last name">
+        </div>
       </div>
 
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input 
-          type="email" 
-          id="email" 
-          [(ngModel)]="registerData.email" 
-          name="email" 
-          class="form-control"
-          required 
-          placeholder="Enter email address">
+        <div class="input-wrapper">
+          <i class="bi bi-envelope input-icon"></i>
+          <input 
+            type="email" 
+            id="email" 
+            [(ngModel)]="registerData.email" 
+            name="email" 
+            required 
+            placeholder="Enter email address">
+        </div>
       </div>
 
-      
       <div class="form-group">
         <label for="phone">Phone Number</label>
-        <input 
-          type="tel" 
-          id="phone" 
-          [(ngModel)]="registerData.phone" 
-          name="phone" 
-          class="form-control"
-          placeholder="Enter phone number">
+        <div class="input-wrapper">
+          <i class="bi bi-telephone input-icon"></i>
+          <input 
+            type="tel" 
+            id="phone" 
+            [(ngModel)]="registerData.phone" 
+            name="phone" 
+            placeholder="Enter phone number">
+        </div>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <div class="input-group" style="display: flex; align-items: center;">
+        <div class="input-wrapper">
+          <i class="bi bi-lock input-icon"></i>
           <input 
             [type]="showPassword ? 'text' : 'password'" 
             id="password" 
             [(ngModel)]="registerData.password" 
             name="password" 
-            class="form-control"
             required 
-            placeholder="Enter password"
-            style="flex: 1;">
-          <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('password')" style="cursor: pointer;">
+            placeholder="Enter password">
+          <button type="button" class="toggle-btn" (click)="togglePasswordVisibility('password')">
             <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
           </button>
         </div>
       </div>
 
-      <button type="submit" class="btn-primary">Register</button>
+      <button type="submit" class="btn-register">Register</button>
     </form>
 
     <div class="login-link">
